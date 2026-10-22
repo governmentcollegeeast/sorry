@@ -3,343 +3,1865 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Mishti — One Tiny Thing</title>
+<title>Our Little Journal ❤️</title>
+<meta name="description" content="101 pages written from the heart.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#090a12;
-    --bg2:#111321;
-    --text:#f8f5f2;
-    --muted:#b9b5c4;
-    --pink:#ff8fb3;
-    --pink2:#ffbfd3;
-    --card:rgba(255,255,255,.075);
-    --border:rgba(255,255,255,.13);
+:root {
+  --bg:#080507;
+  --surface:#120a0f;
+  --surface2:#180d14;
+  --border:rgba(231,161,183,.18);
+  --border-hover:rgba(231,161,183,.42);
+  --text:#f8edf1;
+  --muted:#bca7ae;
+  --accent:#e7a1b7;
+  --accent2:#ffd0dc;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% -10%, #321724 0, transparent 38%),
+    var(--bg);
+  font-family:"DM Sans",sans-serif;
+}
+body:before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.025;
+  background-image:radial-gradient(#fff 1px,transparent 1px);
+  background-size:70px 70px;
+}
+.hero {
+  padding:62px 22px 42px;
+  text-align:center;
+}
+.kicker {
+  color:var(--accent);
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+}
+.hero h1 {
+  margin:8px 0 4px;
+  font-family:"Great Vibes",cursive;
+  font-size:clamp(4rem,8vw,6.5rem);
+  line-height:1;
+  font-weight:400;
+}
+.hero p {
+  margin:12px auto 0;
+  max-width:650px;
+  color:var(--muted);
+  font-size:.92rem;
+}
+.counter {
+  display:inline-flex;
+  margin-top:20px;
+  padding:7px 13px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  color:var(--muted);
+  font-size:.72rem;
+  letter-spacing:.08em;
+  background:rgba(255,255,255,.025);
+}
+.journal-grid {
+  width:min(1400px, calc(100% - 32px));
+  margin:0 auto;
+  padding:18px 0 80px;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:14px;
+  align-items:start;
+}
+.journal-card {
+  min-width:0;
+  padding:17px 18px 15px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:linear-gradient(145deg,rgba(28,14,21,.96),rgba(14,8,11,.96));
+  box-shadow:0 8px 25px rgba(0,0,0,.16);
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.journal-card:hover {
+  transform:translateY(-2px);
+  border-color:var(--border-hover);
+}
+.card-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:4px;
+}
+.entry-number {
+  color:var(--accent);
+  font-size:.61rem;
+  font-weight:700;
+  letter-spacing:.16em;
+}
+.entry-date {
+  color:var(--accent2);
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.25rem;
+  line-height:1.1;
+}
+.journal-card h2 {
+  margin:3px 0 7px;
+  color:#fff;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.08rem;
+  font-weight:600;
+}
+.preview {
+  margin:0;
+  color:#cdbbc1;
+  font-family:"Cormorant Garamond",serif;
+  font-size:.99rem;
+  line-height:1.48;
+}
+details {
+  margin-top:10px;
+  border-top:1px solid rgba(231,161,183,.11);
+  padding-top:8px;
+}
+summary {
+  cursor:pointer;
+  list-style:none;
+  color:var(--accent);
+  font-size:.69rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  user-select:none;
+}
+summary::-webkit-details-marker { display:none; }
+summary span {
+  float:right;
+  font-size:.9rem;
+  transition:transform .2s ease;
+}
+details[open] summary span { transform:rotate(45deg); }
+.full-entry {
+  margin-top:12px;
+  color:#f2e5e9;
+  font-family:"Cormorant Garamond",serif;
+  font-size:1.08rem;
+  line-height:1.62;
+}
+.full-entry p { margin:0; }
+.final {
+  padding:70px 20px 110px;
+  text-align:center;
+}
+.final .script {
+  color:var(--accent2);
+  font-family:"Great Vibes",cursive;
+  font-size:3.8rem;
+}
+.final p {
+  color:var(--muted);
+  line-height:1.7;
+}
+@media (max-width:1050px) {
+  .journal-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:650px) {
+  .hero { padding:48px 18px 28px; }
+  .journal-grid {
+    width:calc(100% - 22px);
+    grid-template-columns:1fr;
+    gap:10px;
+    padding-top:10px;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-  body{overflow-x:hidden}
-  button{font:inherit}
-  .screen{min-height:100vh;display:none;position:relative;overflow:hidden;padding:28px 20px 42px}
-  .screen.active{display:flex;animation:fade .8s ease both}
-  .center{width:min(760px,100%);margin:auto;text-align:center;position:relative;z-index:2}
-  .eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--pink2);margin-bottom:20px}
-  h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.05;margin:0}
-  h1{font-size:clamp(3.2rem,13vw,7.2rem);letter-spacing:-.04em}
-  h2{font-size:clamp(2.4rem,9vw,5rem)}
-  p{line-height:1.8;color:var(--muted);font-size:clamp(1rem,2.5vw,1.16rem)}
-  .lead{font-size:clamp(1.15rem,3vw,1.45rem);color:#e9e5ec}
-  .tiny{font-size:.82rem;color:#8f8a99}
-  .spacer{height:24px}
-  .btn{
-    border:1px solid rgba(255,255,255,.18);
-    color:#fff;background:rgba(255,255,255,.08);
-    padding:15px 22px;border-radius:999px;cursor:pointer;
-    transition:.25s ease;backdrop-filter:blur(10px);
-    margin:8px;
-    min-height:52px;
-  }
-  .btn:hover,.btn:active{transform:translateY(-2px);background:rgba(255,143,179,.18);border-color:rgba(255,143,179,.5)}
-  .btn.primary{background:linear-gradient(135deg,#ff8fb3,#d96e9a);border:0;box-shadow:0 12px 40px rgba(255,100,150,.22)}
-  .btn.danger{background:rgba(255,255,255,.06)}
-  .ambient,.ambient span{position:absolute;inset:0;pointer-events:none}
-  .ambient span{width:3px;height:3px;background:#fff;border-radius:50%;opacity:.35;animation:float 7s infinite ease-in-out}
-  .ambient span:nth-child(1){left:12%;top:18%;animation-delay:-1s}
-  .ambient span:nth-child(2){left:77%;top:12%;animation-delay:-3s}
-  .ambient span:nth-child(3){left:65%;top:72%;animation-delay:-2s}
-  .ambient span:nth-child(4){left:25%;top:82%;animation-delay:-4s}
-  .ambient span:nth-child(5){left:88%;top:48%;animation-delay:-5s}
-  .glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,143,179,.12),transparent 68%);filter:blur(8px);pointer-events:none}
-  .g1{left:-180px;top:-150px}.g2{right:-180px;bottom:-160px}
-  .line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,143,179,.45),transparent);margin:26px auto;width:min(430px,80%)}
-  .stats{display:grid;gap:18px;margin:30px auto;max-width:650px;text-align:left}
-  .stat{padding:18px;border:1px solid var(--border);background:var(--card);border-radius:18px;backdrop-filter:blur(10px)}
-  .stat-title{display:flex;justify-content:space-between;gap:15px;font-weight:650}
-  .bar{height:9px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin:10px 0 7px}
-  .fill{height:100%;width:0;background:linear-gradient(90deg,#ff8fb3,#ffd0df);border-radius:99px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
-  .stat small{color:#918c99}
-  .zero{font-family:Georgia,serif;font-size:2.2rem;color:var(--pink2)}
-  .letter{max-width:720px;margin:28px auto;text-align:left}
-  .letter p{margin:15px 0}
-  .reveal{opacity:0;transform:translateY(18px);animation:reveal .7s ease forwards}
-  .delay1{animation-delay:.2s}.delay2{animation-delay:.5s}.delay3{animation-delay:.8s}
-  .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:30px auto;max-width:780px}
-  .card{border:1px solid var(--border);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.045));border-radius:22px;padding:22px;text-align:left;min-height:150px;cursor:pointer;transition:.3s ease;position:relative;overflow:hidden}
-  .card:hover,.card:active{transform:translateY(-3px);border-color:rgba(255,143,179,.45)}
-  .num{font-size:.72rem;color:var(--pink2);letter-spacing:.16em}
-  .card h3{margin:9px 0;font-family:Georgia,serif;font-size:1.45rem;font-weight:500}
-  .card .inside{display:none;color:var(--muted);line-height:1.65}
-  .card.open .inside{display:block;animation:reveal .45s ease}
-  .card.open{grid-column:span 2}
-  .us-message{display:none;max-width:650px;margin:20px auto}
-  .us-message.show{display:block;animation:fade .8s ease}
-  .bigline{font-family:Georgia,serif;font-size:clamp(2rem,7vw,4.5rem);line-height:1.12;color:#fff;margin:24px 0}
-  .choice{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px auto}
-  .heart{font-size:2rem;animation:heartbeat 1.3s infinite}
-  .final{max-width:730px;margin:auto}
-  .final .message{text-align:left}
-  .signature{font-family:Georgia,serif;font-size:1.35rem;color:var(--pink2);margin-top:28px}
-  .smile{font-family:Georgia,serif;font-size:clamp(3rem,10vw,6rem);margin-top:20px}
-  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:rgba(20,20,30,.9);border:1px solid var(--border);padding:12px 18px;border-radius:999px;z-index:50;transition:.3s}
-  .toast.show{opacity:1;transform:translate(-50%,0)}
-  .confetti{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
-  .confetti i{position:absolute;width:7px;height:14px;top:-20px;border-radius:3px;animation:fall 2.4s linear forwards}
-  @media(max-width:600px){
-    .screen{padding:24px 16px 34px}
-    .cards{grid-template-columns:1fr}
-    .card.open{grid-column:span 1}
-    .btn{width:min(330px,100%);margin:6px auto;display:block}
-    .stats{text-align:left}
-  }
-  @keyframes fade{from{opacity:0}to{opacity:1}}
-  @keyframes reveal{to{opacity:1;transform:translateY(0)}}
-  @keyframes float{0%,100%{transform:translateY(0);opacity:.2}50%{transform:translateY(-20px);opacity:.65}}
-  @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-  @keyframes fall{to{transform:translate3d(var(--x),110vh,0) rotate(520deg);opacity:0}}
+  .journal-card { padding:15px 15px 13px; }
+  .hero h1 { font-size:4.2rem; }
+  .entry-date { font-size:1.2rem; }
+}
 </style>
 </head>
 <body>
 
-<div class="ambient"><span></span><span></span><span></span><span></span><span></span></div>
-<div class="glow g1"></div><div class="glow g2"></div>
+<header class="hero">
+  <div class="kicker">13 March — 21 June</div>
+  <h1>Our Little Journal</h1>
+  <p>101 pages of thoughts, feelings, memories, prayers, silly moments and everything my heart couldn't keep quiet about.</p>
+  <div class="counter">101 ENTRIES · WRITTEN FROM THE HEART ❤️</div>
+</header>
 
-<section class="screen active" id="p1">
-  <div class="center">
-    <div class="eyebrow reveal">A tiny thing from me</div>
-    <h1 class="reveal delay1">MISHTI.</h1>
-    <div class="spacer"></div>
-    <p class="lead reveal delay2">I need you to do something for me.</p>
-    <h2 class="reveal delay3">Give me 60 seconds.</h2>
-    <p class="tiny reveal delay3">No arguing.<br>No judging.<br>Just 60 seconds. 🥺</p>
-    <div class="spacer"></div>
-    <button class="btn primary reveal delay3" onclick="go(2)">Okay, I'm listening →</button>
+<main class="journal-grid">
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#001</span>
+    <span class="entry-date">13 March</span>
   </div>
-</section>
+  <h2>The beginning</h2>
+  <p class="preview">In this journal, i will share each and everything about my real kadar of life, jiske liye mere dil se feelings actually jagi thi, shyd eh journal kdi mein mishti nu dikha na pvaa p…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>In this journal, i will share each and everything about<br>my real kadar of life, jiske liye mere dil se feelings<br>actually jagi thi, shyd eh journal kdi mein mishti nu<br>dikha na pvaa prr mera dil hmesha yaad rkhuga ki<br>sala ki feeling c jdd kisi nu dilo chahya c, 13 march<br>2026 toh likhna start kr reha prr dil ch feeling mere<br>sade college trip kasauli tee hi jaag gai c and o date c<br>26 feb 2026. Meinu ni ptaa mein kyo ehna obsess<br>horeha but seriously mishti i know thnu trust issues<br>horahe ki ansh ptani kida ye vo meinu taa khud toh<br>ehna inferior complex areha ki eh sochda ohnu meri<br>shakal hi na psnd hoii fir?. I am writing like you are<br>reading it, but sadly its a NO!. Aaj mein chintpurni<br>jvala g baglamukhi hoke aya and mein shocked aa<br>mein kyo ptani prr thnu mangg ke aya yrrr. Meinu ni<br>pta kyo horrha eh sb but seriously je kyo pta hunda<br>ta shyd eh pyar hi na hunda. In love with you❤️<br>Shuru toh idgaf behaviour rkhke aaj edha horrha ki<br>ansh tuu krr ki reha ki horeha. But schi swaad bhot<br>areha. Aaj tuhada reply late areha prr dikkat ni hori<br>vrna ego meri ehni high aa ki mein ds ni skda prr ho ki<br>reha ptani yr. likh reha shyd kdi tuc pdo prr eh<br>journal mera sara pyar describe kru. I was into a<br>relationship but this feeling is like first and last! Not<br>kidding i swear</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p2">
-  <div class="center">
-    <div class="eyebrow">Friendship investigation</div>
-    <h2>We have a problem.</h2>
-    <p class="lead">After extensive investigation...</p>
-    <h2 style="font-size:clamp(2.6rem,9vw,5rem)">WE ARE BOTH IDIOTS. 😭</h2>
-    <p>Especially after fighting for <b>HOURS.</b></p>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-title"><span>⏱️ Hours spent fighting</span><span>100%</span></div>
-        <div class="bar"><div class="fill" data-w="100%"></div></div><small>Completely unnecessary.</small>
-      </div>
-      <div class="stat">
-        <div class="stat-title"><span>🧠 Common sense during the fight</span><span>4%</span></div>
-        <div class="bar"><div class="fill" data-w="4%"></div></div><small>We seem to have misplaced it.</small>
-      </div>
-      <div class="stat">
-        <div class="stat-title"><span>❤️ Amount I wanted things to be okay</span><span>100%</span></div>
-        <div class="bar"><div class="fill" data-w="100%"></div></div>
-      </div>
-      <div class="stat">
-        <div class="stat-title"><span>🫶 Amount I wanted this friendship to disappear</span></div>
-        <div class="zero">0%</div>
-      </div>
-    </div>
-    <div class="line"></div>
-    <p class="lead">And that's when I realized something...</p>
-    <button class="btn primary" onclick="go(3)">Continue →</button>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#002</span>
+    <span class="entry-date">14 March</span>
   </div>
-</section>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj ik hor din jdd ohde bare sochde sara dinn udata, prr regret koini. Ohnu pta hai mein ohnu psnd krda pr sala aj pta lga ki o ta kisi hor nu psnd krdi ohde dil ch jgah hini, te s…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj ik hor din jdd ohde bare sochde sara dinn<br>udata, prr regret koini. Ohnu pta hai mein ohnu<br>psnd krda pr sala aj pta lga ki o ta kisi hor nu psnd<br>krdi ohde dil ch jgah hini, te sala jide vste jgah hai<br>o kadar ni kr reha💔. Dil tuteya prr dil ne nava<br>raah dikhaya ki yr mein eh kudi nu ik jindagi<br>daugaa ehnu life dikhauga ehde vste kuch bnke<br>aagge aauga. Harman shyd kdi tuc vi eh journal<br>pdho thank you so much and you joined this<br>mission mishti🥹 recovering her from toxicity. Bro<br>ehna pyar vdh gya na yr ki mishti jida vi a meinu<br>bs edha chahida meri ho jave bs hor ni chahida<br>kuch mein ehnu apna most important part bnake<br>rkhna chahna life da. I know eh unbelievable lag<br>reha pr mein tere piche pagal aa mishtiiii! Tuc<br>shyd kdi ehh journal na pdho prr mera mann<br>janda mein tuhade vstee apne aap nal glla mariya<br>c❤️</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p3">
-  <div class="center">
-    <div class="eyebrow">Why I made this</div>
-    <div class="letter">
-      <p class="lead">Mishti,</p>
-      <p>I know saying sorry doesn't magically erase everything that happened.</p>
-      <p>But I'm not making this to explain myself.</p>
-      <p>I'm not making this to make you choose a side.</p>
-      <p class="bigline">I'm making this just to see you smile.</p>
-      <p>Because after all that arguing...</p>
-      <p>I'd much rather be the reason you smile than the reason you're upset.</p>
-      <p>And maybe that's all I wanted to say.</p>
-      <p class="lead">I really, really care about you, Sohniyee. ❤️</p>
-    </div>
-    <button class="btn primary" onclick="go(4)">There's more... →</button>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#003</span>
+    <span class="entry-date">15 March</span>
   </div>
-</section>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj ik hor din jd din di shuruvaat hi ohnu sochn toh laike hoi, late uthya prr raati late sutta vi ohde bare sochke hi siga❤️ bhot maza areha prr mann dukhda kai vaar. Prr koini eh…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj ik hor din jd din di shuruvaat hi ohnu<br>sochn toh laike hoi, late uthya prr raati late<br>sutta vi ohde bare sochke hi siga❤️ bhot<br>maza areha prr mann dukhda kai vaar. Prr<br>koini eh time dubara ni ana ehh yaada shyd<br>kdi kisi hor nal na bna pava jo mein kalla<br>rehke vi kisi nu feel krde bna skda. Oh kisi hor<br>nu jroor psnd krdi hau prr mein ohnu jivve<br>rkhna chahna shyd ohnu koi rkhn da soche vi<br>na🥹. YOU WILL BE MY FOREVER CRUSH<br>MISHTIII❤️. Meinu pta tuc mere message<br>janke ni dekh rahe prr eh cheej mera dimag<br>keh reha, te dil! Dil soch reha o theek te hai<br>naa.</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p4">
-  <div class="center">
-    <div class="eyebrow">A little collection</div>
-    <h2>Things I don't want to lose.</h2>
-    <p>Tap each one, Sohniyee. No rush.</p>
-    <div class="cards">
-      <div class="card" onclick="openCard(this)">
-        <div class="num">01</div><h3>Your voice</h3>
-        <div class="inside">Those random conversations that somehow become hours. The kind where neither of us knows how we got there... but somehow neither wants to leave.</div>
-      </div>
-      <div class="card" onclick="openCard(this)">
-        <div class="num">02</div><h3>Our stupidity</h3>
-        <div class="inside">The nonsense. The teasing. The completely unnecessary conversations. The things that make absolutely no sense to anyone except us. <b>I wouldn't trade those for anything.</b></div>
-      </div>
-      <div class="card" onclick="openCard(this)">
-        <div class="num">03</div><h3>The little things</h3>
-        <div class="inside">The random “hey.” The unexpected messages. The tiny things you probably don't even realize I notice. Somehow, those are the things that stay with me.</div>
-      </div>
-      <div class="card" onclick="openCard(this)">
-        <div class="num">04</div><h3>Annoying you</h3>
-        <div class="inside">Unfortunately, Sohniyee... this is a lifelong commitment. 😭<br><br>You're not getting rid of me that easily.</div>
-      </div>
-      <div class="card" onclick="openCard(this)">
-        <div class="num">05</div><h3>Being there</h3>
-        <div class="inside">Being someone you can talk to. Someone you can laugh with. Someone you can be completely yourself around. <b>That means more to me than I say.</b></div>
-      </div>
-      <div class="card" onclick="openCard(this)">
-        <div class="num">06</div><h3>Us ❤️</h3>
-        <div class="inside">Some friendships are easy to explain. Ours isn't. It's laughter. It's arguments. It's annoying each other. It's understanding each other without saying much. It's somehow becoming a part of each other's everyday life.</div>
-      </div>
-    </div>
-    <div class="us-message" id="usMessage">
-      <div class="line"></div>
-      <p>And somewhere along the way...</p>
-      <div class="bigline">you became really, really special to me.</div>
-      <button class="btn primary" onclick="go(5)">Continue →</button>
-    </div>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#004</span>
+    <span class="entry-date">16 March</span>
   </div>
-</section>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mishti bare 1 cheej hor pta lagi ki oo CA di preparation kr rahe ne, and sunn ke mera dil hor khush hogyaa ki yess the person i am in love with is also a admiring personality.…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mishti bare 1 cheej hor pta lagi ki oo CA<br>di preparation kr rahe ne, and sunn ke mera<br>dil hor khush hogyaa ki yess the person i am<br>in love with is also a admiring personality.<br>Mein halle ohde nal gll krn chh hichkana<br>jroor aa prr je ohnu kdi lod paugi ta sab toh<br>aage mein khda hauga i swear. Mere linkedin<br>te connections de through mein halle toh hi<br>approach krleya ki kall nu je ehnu lod pai, i<br>should have a person in front for her. Yes i<br>am getting mad, but loving itt!!</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p5">
-  <div class="center">
-    <div class="eyebrow">The part I don't say enough</div>
-    <div class="letter">
-      <p class="lead">Mishti,</p>
-      <p>Sometimes I think I don't realize how much you mean to me until something like this happens.</p>
-      <p>Until we're angry. Until we're not talking properly. Until I suddenly realize how much I miss the normal version of us.</p>
-      <p>The stupid conversations. The random messages. The teasing. The laughing. The little moments that seem ordinary while they're happening... but somehow become the things I remember.</p>
-      <p>And that's when I realize...</p>
-      <div class="bigline">you're not ordinary to me.</div>
-      <p>You're someone I genuinely want in my life.</p>
-      <p>Someone whose happiness matters to me.</p>
-      <p>Someone whose smile can change my entire mood.</p>
-      <p>Someone I don't want to lose over something that lasted a few angry hours.</p>
-      <div class="line"></div>
-      <div class="bigline">You are worth more to me than being right.</div>
-      <p class="lead">Always.</p>
-    </div>
-    <button class="btn primary" onclick="go(6)">One last thing, Cutieeee... →</button>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#005</span>
+    <span class="entry-date">17 March</span>
   </div>
-</section>
+  <h2>A page from this day</h2>
+  <p class="preview">Bhot confused chal reha pr ohde vste pyar constant hai, college betha, jaldi agya si ajj, aage hmesha late aya kyoki koi purpose ni si aan da, hun ohdi ikk jhalak da bhukha a😂. Wai…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Bhot confused chal reha pr ohde vste pyar<br>constant hai, college betha, jaldi agya si ajj, aage<br>hmesha late aya kyoki koi purpose ni si aan da,<br>hun ohdi ikk jhalak da bhukha a😂. Waiting for<br>her❤️</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p6">
-  <div class="center">
-    <div class="eyebrow">Important question</div>
-    <p class="lead">Okayyy... enough emotional damage. 😭</p>
-    <h2>I have one very important question for you, Cutieeee.</h2>
-    <div class="spacer"></div>
-    <div class="bigline">ARE WE DONE FIGHTING?</div>
-    <div class="choice">
-      <button class="btn primary" onclick="yesDone()">❤️ YES</button>
-      <button class="btn danger" onclick="nope()">😤 NO</button>
-    </div>
-    <div id="noReply" style="display:none;max-width:600px;margin:20px auto">
-      <div class="line"></div>
-      <p class="lead">Oh. 😐</p>
-      <p>Okay... I'll respect that.</p>
-      <p>But I'm still going to say one thing.</p>
-      <button class="btn" onclick="revealNo()">What? 👀</button>
-    </div>
-    <div id="noReveal" style="display:none;max-width:600px;margin:20px auto">
-      <p class="bigline" style="font-size:clamp(2rem,7vw,4rem)">You're still my Cutieeee.</p>
-      <p>Unfortunately, that part isn't up for debate. 😭</p>
-      <button class="btn primary" onclick="yesDone()">Okay fine →</button>
-    </div>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#006</span>
+    <span class="entry-date">18 March</span>
   </div>
-</section>
+  <h2>A page from this day</h2>
+  <p class="preview">Pyar meinu hoyaa prr rola mein apne 3 dost ch edha paya jida bhabhi hi bngi hovve.. aaj dost nu phn kita mein keha vadaiyaa broo bhot bhot bhot o kehnda mishtii mangi?😂 mein sochya…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Pyar meinu hoyaa prr rola mein apne 3 dost<br>ch edha paya jida bhabhi hi bngi hovve.. aaj<br>dost nu phn kita mein keha vadaiyaa broo<br>bhot bhot bhot o kehnda mishtii mangi?😂<br>mein sochya yrr ki chal reha o mere nal gl tk<br>ni krr rahi tee mein ohde bare apne naldeya<br>nuvi dsi betha. Smjh ni aari ki kyo ehna pyar<br>hogya meinu ohde nal prr soah lagge ohnu<br>apne toh dur ni hon dau kdi je meri hogai.<br>Roj ohde bare likhdaa , likhda shyd 1% hi aa<br>jina ohde bare sochda</p></div>
+  </details>
+</article>
 
-<section class="screen" id="p7">
-  <div class="final">
-    <div class="center">
-      <div class="eyebrow">For my Sohniyee</div>
-      <h2>One last thing.</h2>
-    </div>
-    <div class="letter message">
-      <p class="lead">Sohniyee...</p>
-      <p>I could have just sent you a “sorry.”</p>
-      <p>But that felt too small.</p>
-      <p>Because you're not a small part of my life.</p>
-      <p>You're someone I've laughed with, argued with, annoyed, been annoyed by, talked to for hours, and shared so many little moments with.</p>
-      <p>And somewhere between all those little moments...</p>
-      <div class="bigline">you became someone incredibly special to me.</div>
-      <p>I don't know if I always show it properly.</p>
-      <p>I don't know if I always say the right things.</p>
-      <p>And I definitely don't know how to avoid turning small arguments into entire seasons of a TV show. 😭</p>
-      <p>But I hope you always know this:</p>
-      <p><b>I care about you.</b><br><b>I care about your smile.</b><br><b>I care about us.</b></p>
-      <p>And I never want one bad moment to make you forget all the good ones.</p>
-      <div class="line"></div>
-      <p>So yes...</p>
-      <p class="lead"><b>I'm sorry, Cutieeee.</b></p>
-      <p>And thank you for being my Sohniyee.</p>
-      <p>For the laughs.<br>For the nonsense.<br>For the memories.<br>For simply being you.</p>
-      <div class="center">
-        <div class="smile">Now smile.</div>
-        <p class="lead">That's all I wanted. ❤️</p>
-        <div class="signature">— from the idiot who made an entire website instead of simply saying sorry 😭</div>
-      </div>
-    </div>
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#007</span>
+    <span class="entry-date">19 March</span>
   </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein 18 march nu kuch mishtii tuhade bare likh ni paya, prr dil mera sara time thnu hi puchda tuhadi hi udeek krda. Meinu ni ptaa tuc manoge nii manoge prr mein hmesha pyar kraga t…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein 18 march nu kuch mishtii tuhade bare<br>likh ni paya, prr dil mera sara time thnu hi<br>puchda tuhadi hi udeek krda. Meinu ni ptaa<br>tuc manoge nii manoge prr mein hmesha<br>pyar kraga thnu dil ch apne, i know eh<br>surprising aa ki ehni cheti kida pyar ho skda<br>pr meinu hoya yr kyo hoya kida hoya kuchni<br>pta but i love you yr🥹. Aaj ik kudi ne meinu<br>approach kita, thik c kudi tuhade toh vdh<br>sohna ta meri akha ch hai ni koi na hau, but<br>single hon de naate mein ohde nal gl vdha<br>skda c but yr dil ne nali kehta. Ki bss ohii,<br>psnd ik rkhni, meri hove na hove idgaf. You<br>are love of my life ❤️. Roj sochda didi nu dsa<br>tere bare prr yrr dill drda ni dil shrmanda</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#008</span>
+    <span class="entry-date">20 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Tuhade nal kinna pyar aa tuc kdi ni jaan skdee ptaa kyoo? Kyoki madam tuc chajj nal gll hini krdee yrr. Tuc ik vaar gll kro meinu parkhoo tuc jandee vii oo koi thnu kinnaa jyaada p…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Tuhade nal kinna pyar aa tuc kdi ni jaan<br>skdee ptaa kyoo? Kyoki madam tuc chajj nal<br>gll hini krdee yrr. Tuc ik vaar gll kro meinu<br>parkhoo tuc jandee vii oo koi thnu kinnaa<br>jyaada pyaar krdaa hai roj tuhade upar kuch<br>na kuch likhda hai thnu pyaar krda haii aap<br>smjhte kyu nai ooo, yrr mishtii bhot pyaar<br>krda yrr thuu khush dekhna chahna mein aaj<br>harman nu keha c ki eh real mishti nai hai<br>mere nal aaoo relation chdo trust krke mere<br>nal aage vdho thnu dikhauaga real mishti<br>kaun hai</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#009</span>
+    <span class="entry-date">21 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Sara din ohde bare sochda kdh dina, msg krn toh pehla 50 vaar sochda ohnu mein glt na lga ohnu uncomfortable na kr dva, ohnu desperate na lga. Mere vrga extrovert mufat person ehna…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Sara din ohde bare sochda kdh dina, msg krn<br>toh pehla 50 vaar sochda ohnu mein glt na<br>lga ohnu uncomfortable na kr dva, ohnu<br>desperate na lga. Mere vrga extrovert mufat<br>person ehna kuch soch reha ik person bare ki<br>pyar aa eh? Te ohnu shyd lgda jida baki ohde<br>magar lagge aa ansh ohna cho ik a. Baki yr jd<br>da pta lga ohnu koi hor psnd hai dil ta<br>dhukya hai prr koinii, je mein sahi hoya ohde<br>vste ta rabb meinu deduga. Mein eh ni<br>kehnda je mere vste sahi hove ta meri hojugi,<br>mein ohnu glt keh hini skda. Mein glt hauga<br>ta ni rabb ohnu mera hon de reha</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#010</span>
+    <span class="entry-date">22 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein sara din thnu koi message ni kita prr tuhade te likh jroor reha kyoki yaar mein pyaar krdaa vaa thnuu tuc smjho i know ehni cheti pyaar nai hunda prr meinu hoya hai yrr me…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein sara din thnu koi message ni kita prr<br>tuhade te likh jroor reha kyoki yaar mein pyaar<br>krdaa vaa thnuu tuc smjho i know ehni cheti<br>pyaar nai hunda prr meinu hoya hai yrr meinu<br>pehli vaar hoya mein ehna obssessed ehna<br>loving kdi nai c jina hun aa mein real ansh<br>dekhya hai. I dont know how to thank you but<br>you are the one jide krke mein apni eh<br>personality dekh paa reha jide bare mein sara<br>sara din sochda vaa yrr thank you soo much<br>yaar thank you. Ptani ki horeha bss tuhade nal<br>pyaar bhot jyaada ho chukaa hrr time tuhade<br>naam de tarle krda rabb aagee yrr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#011</span>
+    <span class="entry-date">23 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Sonn lgaa c prr neend ni aari ohde bare hi soch reha. Meinu dikh reha o meinu psnd ni krdii prr mera dil kehnda ki ansh ehde vrgi feeling tenu pehlan kdi nai aai soo lgaa reh.. mer…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Sonn lgaa c prr neend ni aari ohde bare hi<br>soch reha. Meinu dikh reha o meinu psnd ni<br>krdii prr mera dil kehnda ki ansh ehde vrgi<br>feeling tenu pehlan kdi nai aai soo lgaa reh..<br>mera o msg 7-8 ghnte vi tapa dindi hai te<br>dekhdi nai hai.. prr mera kdi ohde aage ego<br>factor aa hini paya yr🥺.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#012</span>
+    <span class="entry-date">24 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj pehli vaar tuc meinu koi reel share kiti c tuc momos di bheji c mein ehna jyadas khushh yrr ki tuc mere bare sochde vi ho yrr seriously lovee youu soo much kaash muh te bol paa…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj pehli vaar tuc meinu koi reel share kiti c<br>tuc momos di bheji c mein ehna jyadas<br>khushh yrr ki tuc mere bare sochde vi ho yrr<br>seriously lovee youu soo much kaash muh te<br>bol paanda tee sunn panda lovee you too jii</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#013</span>
+    <span class="entry-date">25 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj fer sara din tuhada bhot late reply aya prr meinu koi dukh nai hoya mein janda vaa tuhanu halle koi feelings nai prr mein lagga rahugaa banke dikhaugaa.. KAMYAAARR hrr kudi da…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj fer sara din tuhada bhot late reply aya<br>prr meinu koi dukh nai hoya mein janda vaa<br>tuhanu halle koi feelings nai prr mein lagga<br>rahugaa banke dikhaugaa.. KAMYAAARR hrr<br>kudi da favourite kamyaarr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#014</span>
+    <span class="entry-date">26 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Happiness on peakkkk Ohne aaj time te reply kitee raati, ohda Ptani but mein bhot bhot khush aa yrrr😭😭😭😭 thank youu rabbaaaa❤️🙏🏻</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Happiness on peakkkk<br>Ohne aaj time te reply kitee raati, ohda Ptani but<br>mein bhot bhot khush aa yrrr😭😭😭😭 thank youu<br>rabbaaaa❤️🙏🏻</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#015</span>
+    <span class="entry-date">27 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein eh decide kita ki soon mein ohnu dsugaa ki ohnu mein psnd krda , pyar da izhaar tdd kruu jdd sahi time hau.. meinu ni pta o meri hau nai hau ptanii, but mein ohnu apni lif…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein eh decide kita ki soon mein ohnu<br>dsugaa ki ohnu mein psnd krda , pyar da izhaar<br>tdd kruu jdd sahi time hau.. meinu ni pta o meri<br>hau nai hau ptanii, but mein ohnu apni life ch<br>chahna chahe jo mrzi bnke aave o❤️ mein ohde<br>upr apni jindagi likhna chahna. Oo ca banna<br>chahndi hai mein apne goals ohde nal pura krna<br>chahna mein chahna o CA bne te mein ohdi life<br>chh importance rkhaa ohde CA journey ch,<br>meinu ptaa ohde nal society ne glt kita hai ..<br>mein ohnu hrr cheej jo bhr kdhh ik jindagi dena<br>chahna. I know eh sb mzak lag reha hove shyd<br>but seriously yrr mein sara din mishti tere bare<br>hi sochdaa yrr sara din tuhade msg di udeek<br>krdaa. Mein ehni egoistic personality tere aage<br>bilkul zero aa yr zero😭. Mein bss eh chahna</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#016</span>
+    <span class="entry-date">28 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Zindagi purani chdd te mere nal aage vdh, Tenu pyar beshumaar toh pta lagu ki hundi pyr di hdd, Aaj pehli vaar tere te kuch likh reha, Tenu apne akhi soch bss muskraa reha, Pyar te…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Zindagi purani chdd te mere nal aage vdh,<br>Tenu pyar beshumaar toh pta lagu ki hundi pyr di hdd,<br>Aaj pehli vaar tere te kuch likh reha,<br>Tenu apne akhi soch bss muskraa reha,<br>Pyar tere nal hai kina oo tu aj tk na jaan saki,<br>Tenu esi zindagi dikhau tu past na kdi pehchaan sakhi,<br>Tenu dil de kol rkh bss hsdaa vekhna chahna,<br>Sukoon kinu kehnde oo teri muskaan toh smjhna chahna, <br>Vishwas rkhya jna jroor mushkil hai,<br>Prr tenu khush rkhna mere vste jroor mumkin hai,<br>Tu chahe meinu kdi apna na bnai,<br>Bs merekol reh meri zindagi swaar dai.<br>Meinu pta tenu mere bare pta sab hai,<br>Prr pyar kive kruu iss bare tu anjaan hai.<br>Tenu dhokhe ch dekh khud hanjuu nal bhij skda,<br>Tenu kivve dhokhaa de deya,<br>Mein ta drr teri khij toh skda.<br>Tere kol reh tenu iss zalim smaaj toh bchana chahna,<br>Tenu kol rkh zindagi de rang dikhana chahna.<br>Tera khwaab CA da mein pugaan ch jaan vardu,<br>Tu bss Vishwas rkhi mein iss jagg nu chdd sabb tere utto<br>vaardu.<br>Bhul skda mein sab si bs eh pyar nai,<br>Mishti sab tere vste hai iss toh bdd koi pyar nai koi yaar nai<br>❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#017</span>
+    <span class="entry-date">29 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Trust me sab sach hai seriously eh ala mere dil de bhot close hai. Mein tenu psndd ussi din krleya c jdd apa trip te c. Bhot hurt hoya c uss din jddd tuc meinu bye bye hifive ni di…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Trust me sab sach hai seriously eh ala mere<br>dil de bhot close hai. Mein tenu psndd ussi<br>din krleya c jdd apa trip te c. Bhot hurt hoya<br>c uss din jddd tuc meinu bye bye hifive ni diti<br>c. Mein egoistic personality uss din bhot hurt<br>hoya and I was like what the fuck meinu kyo<br>ehni prvah horahi but yr with time i started<br>loving you. And aaj da din hai mein kall apne<br>didi ghr gya si othe krishan g radha g di<br>sthapit murtiya hai and mein othey thnu<br>mangeya kii bss eh kudi nu meri jholi ch<br>paado mein schi jaan vardu ehde toh.. and<br>raati aake tuhade replies aarey c i was very<br>very happy. Aaj gurudwara gya thnu mangke<br>aya, chintpurni jvala g gya c thnu mangke<br>aya. Meinu yr bss tuc chahide oo hunn mein<br>relation ni kehndaa bss meinu tuc meri life<br>ch present chahidie oo.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#018</span>
+    <span class="entry-date">30 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein sara din mishti g tuhade bare hi sochda, sochda jdd tuc mere hojuge mein thnu apni bhen nal milvaugaa. Mera past jroor reha pr mein kdi eh accept tk ni kita ki meri koi sehli…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein sara din mishti g tuhade bare hi<br>sochda, sochda jdd tuc mere hojuge mein<br>thnu apni bhen nal milvaugaa. Mera past<br>jroor reha pr mein kdi eh accept tk ni kita ki<br>meri koi sehli vi hai. And finally je rabb meinu<br>bakshda thnuu je mein sahi hoya tuhade<br>vste. Ta mein thnu apni bhen nall milvaugaa<br>she will be very happy to see you. I am<br>manifesting you 24/7 yaarr. Mein sara time<br>ehi sochda ohnu edha rkhuga ohnu edha<br>kruga ohh CA inter ch aaugi ohnu mein Pdh<br>auga mein smjhaugaa mein ohda sath dauga.<br>Ptani ki ki yrrr😭. Please yrr i seriously<br>started loving you and you are considering<br>this a attraction of me only😭</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#019</span>
+    <span class="entry-date">31 March</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Ab uska msg aya hua hai mein janke ni dekhugaa taki subha good morning bol pau 😂😂😎😎</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Ab uska msg aya hua hai mein janke ni<br>dekhugaa taki subha good morning bol pau<br>😂😂😎😎</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#020</span>
+    <span class="entry-date">01 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj finally ohde nal glla hoiya ohnu apni family bare dsyaa aaj dil kaafi khush hai❤️ nazar na lagge bss.. ohnu apni life bnana chahnaa sab bhulke sbb chdkee ohde nall bss ikk vdia…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj finally ohde nal glla hoiya ohnu apni family bare dsyaa<br>aaj dil kaafi khush hai❤️ nazar na lagge bss.. ohnu apni life<br>bnana chahnaa sab bhulke sbb chdkee ohde nall bss ikk<br>vdia rste turna chahna. Aaj meinu ohdi ik Reel bheji<br>harman ne and seriously mein reel near about 50 vaar<br>dekhli just to see her. Ohnu lg reha mein ohde nal flirt kr<br>reha yrr kuch, bss ik vr ohde hath eh journal lagge shyd<br>sbb nikl jave ki there is someone who want her without any<br>condition, love her even she has crush on someone else💔<br>i don&#x27;t want her to go in dirty hands seriously 🙏🏻 meri na<br>hove koi gl nii, kisi glt bnde di na hove bss kl nu. Mein ni<br>kehnda mein 100% sahi aa prr yrr ohde nal mada krn chh<br>hath pair kambnn lg jn ge. I am seriously in love with you<br>mishti❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#021</span>
+    <span class="entry-date">02 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein sara time mishti tuhade bare soch da speech ready krda rehna ehnu edha kahu edha bolu edha ohnu smjhau edha ohnu aage vdhau, thnu desperate na lagga iss krke reels show hundiy…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein sara time mishti tuhade bare soch da<br>speech ready krda rehna ehnu edha kahu edha<br>bolu edha ohnu smjhau edha ohnu aage vdhau,<br>thnu desperate na lagga iss krke reels show<br>hundiya tuhade vste bhejn vste bhejda ni 1<br>bhejdaa baki save krke rkhlena ki shyd kdi ta<br>bhejagaa.. i dont know what is happening but the<br>true thing is i am in love with her. Ohnu mein<br>psnd nai meinu eh pta pr yr mein ohnu kisi glt<br>hatha ch ni dekh skda yr oo ehni masoom aa yr<br>🥺.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#022</span>
+    <span class="entry-date">03 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj pehli vaar ohde nal ehni gll hoi ohde nal gl krke ehna sukoon mileya i swear❤️.. aaj ohnu mein apni family bre hor dsyaa apne pov bare dsyaa shyd o halle mere te bhrosa ni kreg…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj pehli vaar ohde nal ehni gll hoi ohde nal gl<br>krke ehna sukoon mileya i swear❤️.. aaj ohnu<br>mein apni family bre hor dsyaa apne pov bare<br>dsyaa shyd o halle mere te bhrosa ni kregi prr<br>seriously mein ohde upro jaan vaar skda hun<br>apni eh hisab hai.. jo mrji hai chahe haa hai<br>ohdi chahe naa hai.. mein eh journal ohnu kdi<br>na kdi jroor pdhauga🥹</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#023</span>
+    <span class="entry-date">04 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Rabb di meher nall meri ohde nal gl taa shuru hogi sukh nal kl raati 4 vaje tkk glla mariaa.. bhot vdia kudi hai yr rabb vrgi kudi hai, jida di chahna same ohii haii hdd toh vdhh s…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Rabb di meher nall meri ohde nal gl taa shuru<br>hogi sukh nal kl raati 4 vaje tkk glla mariaa.. bhot<br>vdia kudi hai yr rabb vrgi kudi hai, jida di chahna<br>same ohii haii hdd toh vdhh sweet hai prr ohnu<br>jida smjh aya ki mein ohnu apni life ch chahnaa<br>ohne nali sunata ki mein relation ch aan nu nai<br>ready, yrr relation ni chahida meinu meri life ch<br>ohh chahidi hai bss🥹🥹 meinu ni chahida kuchh<br>hor🥺</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#024</span>
+    <span class="entry-date">05 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Ohde vallo message, reels dono seen te chd dena mere vste bhot ik set back c but i chose to give her some space. Yr i am not obsessed but i am in love. Meinu meri life ch chahidi h…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Ohde vallo message, reels dono seen te chd dena<br>mere vste bhot ik set back c but i chose to give her<br>some space. Yr i am not obsessed but i am in love.<br>Meinu meri life ch chahidi hai oo at any cost, I<br>seriously love her yrr.. mere vste uss toh vdia kudi by<br>nature iss jmane ch hai hini.. yrr mishii yr mein tuhade<br>vste ptani ki ki sukh ke betha ki tuc jis din mere hojuge<br>mein golden temple jake aau ardaas krauu meinn<br>gurudware mandir jake vii ehi mangda ki rabba bss eh<br>kudi meri jholi chh paade mein bhot saambh ke<br>rkhugaa🥺. I wanna cry right now seriously 😭</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#025</span>
+    <span class="entry-date">06 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Meinu ohdi feelings nai najar andiya. Aaj ohda mood khrab lgga meinuu and i tried my best to make her laugh and just demanded one thing in return ki jdo free hauge meinu dss dena i…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Meinu ohdi feelings nai najar andiya. Aaj<br>ohda mood khrab lgga meinuu and i tried my<br>best to make her laugh and just demanded<br>one thing in return ki jdo free hauge meinu<br>dss dena i will wait. Ohda halle tk msg ni ayaa<br>i was afraid thik hai sbb yaa naii mein apni<br>ego self respect side te rkhke text krleyaa<br>ohna nu. Prr gl sarii eh hai ki mein vi expect<br>kr reha kuchh in return and when i am<br>loosing i am getting soo soo hurted ki mein<br>bss rondaa hini yrr.. mishtii thnu sabb mzak<br>lag reha hauu navva navva chaska lag reha<br>hauu.. meri relation ch aan dii chah lgri hau.<br>Yr mein diloo pyar krn lagpeya aa thnuu..<br>mein schi mazak ni kr reha.. thnu izhaar ni kr<br>skdaa prr mein thnuu bnan vste thnu aage<br>vdhan vste kisi vi hdd tkk ja skda. Te je ehna<br>krke vi mein je rvaan aaleya cho aa ta ki faida<br>rehgya mera??🥺..</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#026</span>
+    <span class="entry-date">07 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein koshish issdi kiti ki o ik vrr hss pavve, Mere dil nu suntushti ohda ik hasa hi pa davve, Mein pyar kina krda eh tu na jaan ski, Tere vste kina girr skda tu na kdi pehchaan sk…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein koshish issdi kiti ki o ik vrr hss pavve,<br>Mere dil nu suntushti ohda ik hasa hi pa davve,<br>Mein pyar kina krda eh tu na jaan ski,<br>Tere vste kina girr skda tu na kdi pehchaan<br>skki,<br>Suneya hai ki kisi magar anne vang bhajan nal<br>satt sehni pendi,<br>Tere sare dukhh apne sirr krr lva satt ta 100<br>pavve rehndi,<br>Mein tenu kina keemti smjh ke rkhu tu vishwas<br>ta kr,<br>Tu nibhan di koshish taa krr,<br>Jindagi da eh ik chance tenu pyar beshumaar<br>dau,<br>Mohabbat di kami na kdii ehh tera pyrr dau.<br>Tere ghr da bcha bnke mein rahu,<br>Tera jeevan bnan ch mein mein lgga rahu,<br>Mein tere parivar nu apna bnana chahna,<br>Apna bna ohna nu vi hsana chahna,<br>Ohna da bcha bnn sewa da farz pura krna,<br>Naal ohna de rehh sabb khwaab pura krna<br>Tu ik chance ta de mishii🥹</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#027</span>
+    <span class="entry-date">08 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein suneya hai ki je apni value bhuulkee apa kisi magar javage taa oo vi sadi value bhul jayega.. prr mishtii ki kra yr mere vstee tuc jroorii oo meri value nii te mein ehna drda…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein suneya hai ki je apni value bhuulkee<br>apa kisi magar javage taa oo vi sadi value<br>bhul jayega.. prr mishtii ki kra yr mere vstee<br>tuc jroorii oo meri value nii te mein ehna<br>drda ki yr mein pehli vr edha kisi vste ho<br>prehaa je ehh na hoii taa ki kruga yrr tut<br>jauga ye vo. Ki kra yr🥹😭. Mein yrr obssesed<br>ni aa pyr krn lagpeyaa yrr plz koi ta smjho<br>mein edha kisi da ni ho skda vishwas rkho🥹</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#028</span>
+    <span class="entry-date">09 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I manifested you mishii, i begged bhagwaan g ki o meri ho jave. Mein bhot smbhaal ke rkhuga. Before i let you go, I will tell you everything ❤️</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I manifested you mishii, i begged bhagwaan g<br>ki o meri ho jave. Mein bhot smbhaal ke<br>rkhuga. Before i let you go,<br>I will tell you everything ❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#029</span>
+    <span class="entry-date">10 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Sade dona da halle ehna bond vi nai hai firvi mein thnu bhot miss kr reha yrr mera pyaar bann chuke oo jaan vasan lag gai hai tuhade chh sara time tuhadade baare hi sochda rehna va…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Sade dona da halle ehna bond vi nai hai firvi<br>mein thnu bhot miss kr reha yrr mera pyaar<br>bann chuke oo jaan vasan lag gai hai tuhade<br>chh sara time tuhadade baare hi sochda<br>rehna vaa yrr tuc pyaar o mera, sabb kuch<br>bann chuke o please ik vaar rabb meri sunnn<br>lavve pehli vaar insaan mang reha meinu de<br>dave yrr rab pleaseeee</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#030</span>
+    <span class="entry-date">11 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Today is 1 april mera ta dil kr reha propose hi krr dava jee naa krti april fool bolduu prrr kini gandiii soch aa ehh tuc kehda bujh hoo sabb smjhde hi oo yrr mein thnu pyaar krdaa…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Today is 1 april mera ta dil kr reha propose hi<br>krr dava jee naa krti april fool bolduu prrr kini<br>gandiii soch aa ehh tuc kehda bujh hoo sabb<br>smjhde hi oo yrr mein thnu pyaar krdaa, meri<br>ca sahiba tuc ik vvrr manno ta sahi thnu<br>pyaar dikhauga aslii pyaar dikhauga kii<br>hundaa sohniyee. I lovee you sooooo<br>muchhh</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#031</span>
+    <span class="entry-date">12 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">YOUR DREAMS TO COMPLETE Make her CA Guitar Trampoline park How to drive car, bullet Concert Travelling</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>YOUR DREAMS TO COMPLETE<br>Make her CA<br>Guitar<br>Trampoline park<br>How to drive car, bullet<br>Concert<br>Travelling</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#032</span>
+    <span class="entry-date">13 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yrr tuc ni jandee ki tuc ehne pyare oo tee thnu koii ehna pyar vi kr skda, yr mein apni ego 0 krtii aa tuhade aage schi plzz mere naal raho mere bnke mein tuhade te apne jaan vardu…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yrr tuc ni jandee ki tuc ehne pyare oo tee thnu<br>koii ehna pyar vi kr skda, yr mein apni ego 0 krtii<br>aa tuhade aage schi plzz mere naal raho mere<br>bnke mein tuhade te apne jaan vardugaa yrr tuc<br>bhrosa ta krke dekhoo..</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#033</span>
+    <span class="entry-date">14 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Ki chl reha kuch smjh ni areha, Bss mann cho tera khyal ni ja reha, Mein tenu apne nal khdeya dekhna chahna, Mein tere ch apna sabb vsda dekhna chahna, Mera pyar bn mere nal khd ta…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Ki chl reha kuch smjh ni areha,<br>Bss mann cho tera khyal ni ja reha,<br>Mein tenu apne nal khdeya dekhna chahna,<br>Mein tere ch apna sabb vsda dekhna chahna,<br>Mera pyar bn mere nal khd ta sahi,<br>Mein sb tere uto vardu tu bss naal ta rahi,<br>Tuc sabb jande vi anjaan rehne oo,<br>Meinu meri psnd da puchde o,<br>Khud jvab bn mere khwaba ch rehne o❤️ <br>Mere vste tuhade supne jroori bn chuke ne,<br>Mere sare khwaab tuhadi muskaan te mukk<br>chuke ne,<br>Mein tenu dhokha ni de skda,<br>Mein tenu hanjuaa ch ni dekh skda,<br>Tere paira di chaahh rehna chahna,<br>Sbb tere toh aage khdd,<br>Hrr tera dukh apne te sehna chahna❤️<br>Bhrosa kr ta sahi, <br>Jindagi kinu aakhde oo dsna chahna❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#034</span>
+    <span class="entry-date">15 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mera sara mood hun edha hai tuhade te matter krda. Ghr health situations chal rahiya dovva te mein ehna pgl ho chuka gurudware jake vi mein thnu mang rehaa sabb sukh shanti te mish…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mera sara mood hun edha hai tuhade te<br>matter krda. Ghr health situations chal<br>rahiya dovva te mein ehna pgl ho chuka<br>gurudware jake vi mein thnu mang rehaa<br>sabb sukh shanti te mishti❤️.. mein schi yr<br>iss vrr bhot serious aa te schi mein rabb vang<br>rkhuga thnuu ik vr bhrosa ta krke dekho.. pyr<br>ehna ki je tuhada reply aareha tuhade nal gl<br>hoi hai taa bhot vdia din jayega sara din<br>charming rahugaa and jd ni aayega tdd mein<br>overthink kruga td mera kithe mann ni lagega<br>mtlb yr all is depending upon you🥹. Please<br>mishii❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#035</span>
+    <span class="entry-date">16 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Not kidding mishii iss time tuc meinu dske hatey o ki daadi thnu dekhke hsse aajj khidd gaye ik dumm meri akha bhrgiya yrr mein vi edha hi hsda rehna chahna thnu dekhke🥹❤️</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Not kidding mishii iss time tuc meinu dske<br>hatey o ki daadi thnu dekhke hsse aajj khidd<br>gaye ik dumm meri akha bhrgiya yrr mein vi<br>edha hi hsda rehna chahna thnu dekhke🥹❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#036</span>
+    <span class="entry-date">17 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">5 april 2026 mein thnu confess kitaa ki mein thnu psnd krda prr mein dss ni paya exactly kivve thnu rkhna chahna.. tuc kehne o mein pehle hi jvab de chuki aa ki mein relation ch na…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>5 april 2026 mein thnu confess kitaa ki mein thnu psnd krda prr mein dss ni paya<br>exactly kivve thnu rkhna chahna.. tuc kehne o mein pehle hi jvab de chuki aa ki<br>mein relation ch nai aana yrr relation chahida hini life time support chahidi tuhadii<br>oo de skde ho?? Mein thnu apne kol rkhh ik vdia life dena chahna thnu apne dil di<br>gll dss sbb tuhade dil da vi sunna chahnaa tuhada time chahna prr time waste krke<br>thnuu zindagi toh aage vdhn ch ni rokna chahna. Meinu pta thnu trust issues ne prr<br>trust me yr mein pehle bhot glt reha but hun naii yrr mein thnu choose kita hun ik<br>umeed smjhke hun tuc ya ta mein kisi val nai mein psnd krdaa ehh niii ki hun kisi val<br>vi chla java.. theek hai yr mein pehle sbb for granted leya mein ehna lovable past<br>vste nai reha apne prr hun mein sbb badal dena chahna, chahe oo ghrr dsna haii<br>thnu smbhlna hai sabb vste tyar aa yr mein. Mein thnu use ni krna chahnda mein ta<br>tuhadaa o part banna chahna jide nall tuc khush rvvoo dunniya da hrr<br>compromise, sacrifice sbb krn de baad vii thnu edha na lagge mein piche rehri aa<br>mein tuhadi support nu prioritise krde hoyee tuhade regard nu ni bhulna chahnda<br>mein hrr cheej vich tuhada sath bnu sbb glt sbb kudiiya and all chdke tuhade nal<br>aage vdhuu thnuu oo sbb dauu joo tuc shyd kdi manifest ni kita hau.. haa mein<br>krdaa thnuu, thnu rvana ni chahnda pr tuhade ronde te thnu hsana chahna.. meinu<br>pta edha bhrosa krna saukha nai hai kisi te vi hunde hai trust issues, mein kehna let<br>it be, but at least ik chance ta lvoo ki pta life badal javve?? Mein glt ni aa te je glt<br>lgda meet my family. Mein thnu milke tuhadi akha ch akha paake bolnn da dumm<br>rkhda ki haa yr mein krda pyr prr hun situation oho si ta mein kehta mein hun schi<br>mishi bhot commitments bhot self made rules aali personality bneya from this<br>year and the huge complement goes to you, where no one will be there to regard<br>you, thank you i will be there to clap for you to be your happniess and specially<br>last hope.. jida munde kudii aaj kl relation nu rkhde apa uvve rehna hini apa ik<br>different personality apni ik different society bnake aage avagee, kalli gll CA<br>support di ni mein tuhadi moral support tuhade downfall di support sbb bnke<br>rahugaa, meinn thnu oh feel dauga jdd thnu lgega koinii hai td thnu realise hoyega<br>that i have someone who will understand me who will procure my good energy<br>back. Mein tuhade 0% chh 100% rahuga.. tuc kudi bhot changee oo yrr mein schi<br>tuhada point of view nu respect kruga, kdi kdi ldhuga prrr haar ke ajaugaa mein<br>jauga ni. Tuhade jini sohni personality te nii prr ikk oo personality bnuga jide aage<br>tuc sare world dii complaint, bitching sbb krr skde oo.. mein tuhada oo loving to<br>supporting system bnu that will never let you feel that you are less, noo you are<br>perfecttt!!!. Duniya tuhade magar aai hauu, ik vaar bhrosa mere te krke dekho sbb<br>badal duga seriously mein khud nu already bhot badal chukaa. Mein eh ni kehnda<br>kii relation ch aao but mein thnu psnd sehli bnan de motive toh ni prr apna bnande<br>ik dooje de nal rehnde , commitments de, te ik best bond rkhn de motive toh jyada<br>krdaa.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#037</span>
+    <span class="entry-date">18 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes you matters alot to me mishtii. Mein schi sara din ehii sochda ki jdd kdi vi commitments mere nall miln giyaa tuhadii ta thnu kida rkhagaa. Mein sche dilo krda thnu shyd thnu k…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes you matters alot to me mishtii. Mein schi sara din ehii<br>sochda ki jdd kdi vi commitments mere nall miln giyaa<br>tuhadii ta thnu kida rkhagaa. Mein sche dilo krda thnu<br>shyd thnu kdi realise na hovve but seriously i am the one<br>jide vste tuc bhot bhot matter krde oo, tuhadi vste mein<br>fake bnke ni reh skda tahi joo hunda dil chh muhh tee keh<br>dinaa you means a lot to me yrr thnu kdi smjh ni aayega<br>shyd. Mein umeed haran lag gya c but yr dil kehnda ki pta<br>oo parakh rahi hovve te dil kehnda tu ohnu psnd krda<br>dost bnke ohdi presence ta feel krr hi skda na.. bss yr<br>dukh tdo hau jdd tuc kdi kisi hor de ho gayee bss rabb kre<br>tuc hmesha khush rvoo, ho jao kisi hor dee bss bnda sahi<br>hovve thnu rolle naa. I am not a gangster to protect you<br>like killing someone but the one who cares for you ki tuc<br>glt hthaa chh naa jaoo bss<br>Bhagwan ji meher krn je kdi ohna ne thnu baksheya na<br>mere vste soah lagge edha rkhaga tuc soch vini skdi,<br>fullaa vang rkhaga soah lagge diloo likh reha</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#038</span>
+    <span class="entry-date">19 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I wanted to have your songs to listen it in pvt to get a feeling that you are with me or i can feel your presence!! Brother aya hoyaa meraa bua da beta and oo magar peya hoya mere…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I wanted to have your songs to listen it in pvt<br>to get a feeling that you are with me or i can<br>feel your presence!!<br>Brother aya hoyaa meraa bua da beta and oo<br>magar peya hoya mere chal game kheliyee<br>but kyaa kree madam jii online hai usko nhi<br>chodd skte hum</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#039</span>
+    <span class="entry-date">20 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mere ghr stress chal reha iss time bhot and seriously dil baar baar tere nal gl share krna chahreha. Trust mein edha da pehle kdi nai c hun ik dum sabb change hogya hai and serious…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mere ghr stress chal reha iss time bhot and<br>seriously dil baar baar tere nal gl share krna<br>chahreha. Trust mein edha da pehle kdi nai c<br>hun ik dum sabb change hogya hai and<br>seriously i am in love with your simplicity.<br>Ansh hun pura change hona chahnda mein<br>puri life tere te lgadu tu meri hoke taa dekh<br>na yrr. Mein stressed a want to talk to you<br>but my mind being very stressed but just<br>thinking about you only i dont know ki<br>horeha.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#040</span>
+    <span class="entry-date">21 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein yr bhot sudhar gya mishti tuhade aan toh baad da schi i know thnu eh glla over exaggeration ya over thoughtful lagke temporary attraction lagge tuhade val but there is huge di…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein yr bhot sudhar gya mishti tuhade aan<br>toh baad da schi i know thnu eh glla over<br>exaggeration ya over thoughtful lagke<br>temporary attraction lagge tuhade val but<br>there is huge difference yaar mein seriously<br>bhot overthinker ban gya and just thinking<br>about you always. Mein bhot pyar nal rkhu<br>thnu. Thnu pta mein pehle jane khane nu<br>gala kdh deniyaa gusse ch rehna hun sara<br>time change karam di bhukh rkhda ki kaash<br>mere change karam de fall ch meinu mishti<br>bakshden bhagwan ji!</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#041</span>
+    <span class="entry-date">22 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mera pra roj meri esi taisi krdaa ki aja game kheliyee mein 3-4 vajee sonn ala bndaa hun 12-1 sukoon naal soreha hundaa sirff ik tuhade hukum nall.. kii krkee rkhtaa sohniyeee 😂😂</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mera pra roj meri esi taisi krdaa ki aja game<br>kheliyee mein 3-4 vajee sonn ala bndaa hun<br>12-1 sukoon naal soreha hundaa sirff ik<br>tuhade hukum nall.. kii krkee rkhtaa<br>sohniyeee 😂😂</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#042</span>
+    <span class="entry-date">23 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj bhot bhot khush aa yrr muma di kidney donation and all krke tuc bhot vdia console kita yr, tuc bss puch leya mein ohde ch hi vdiaa hogya ohde ch hi console hogyaa pura yrr i am…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj bhot bhot khush aa yrr muma di kidney<br>donation and all krke tuc bhot vdia console<br>kita yr, tuc bss puch leya mein ohde ch hi<br>vdiaa hogya ohde ch hi console hogyaa pura<br>yrr i am at bare minimum i just want you, you<br>are love of my life yaar thank you soo much<br>yr. you are best important and forever part<br>of my life yr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#043</span>
+    <span class="entry-date">24 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj normal day reha apni jyada gll nii hoii prr mein tuhade bare bhot sochyaa, gurudwara gya muma di health de naal thnu mang ke aya tuc pyaar mera mein thnuu mangda aaj thoda stre…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj normal day reha apni jyada gll nii hoii prr<br>mein tuhade bare bhot sochyaa, gurudwara<br>gya muma di health de naal thnu mang ke<br>aya tuc pyaar mera mein thnuu mangda aaj<br>thoda stressed sii bss tuhadi wait ch si aajj<br>vichh lagatar te vich bhot late latte replies<br>aye but my ego is 0 i lovee youuu because<br>like no one did, you are precious</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#044</span>
+    <span class="entry-date">25 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein thnu aage vdhda dekhna chahna thnu pyaar krna chahna thnu dikhana chahnaa kii hrr zheec temporary ni hundi koi thnu permanent whole life lai chaah skda soo lagge je tuc mil ga…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein thnu aage vdhda dekhna chahna thnu<br>pyaar krna chahna thnu dikhana chahnaa kii<br>hrr zheec temporary ni hundi koi thnu<br>permanent whole life lai chaah skda soo<br>lagge je tuc mil gaye naa rabb ne je meri<br>guxzarisha sunn laiyaa meinn pakka viahh<br>krauga, i know it is very early to say but i<br>wanna marry you cutieeeeee</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#045</span>
+    <span class="entry-date">26 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tuc mere nal apni family da share kita ki tuhada vi bua di family nal bhot pyaar hai i love you soo much yr meinu ehna vdia lgaa naa yrr meinu ehna apna pann feel hoya hrr chee…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tuc mere nal apni family da share kita ki<br>tuhada vi bua di family nal bhot pyaar hai i<br>love you soo much yr meinu ehna vdia lgaa<br>naa yrr meinu ehna apna pann feel hoya hrr<br>cheej chh jd da SAME SAME HO REHA NAA<br>ehna vdiaa lg rehaa ehna pyaar anda na<br>tuhade te kii yrr ehh schii mere vrgii aa yrr<br>prr firvi haa ni kri huhhh, yes aaj hi sikhyaa<br>huhhh tuhade tohh tuc gussa hoye c mein<br>keha c kudiyya nal glla maar reha</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#046</span>
+    <span class="entry-date">27 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj apni bilkul gll ni hoii naa tuc msg kita naa mein msg kitaa bilkul gl ni hoii but i missed you soo much yrr you are mine my love yrr but ki kra i wanted to give you some person…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj apni bilkul gll ni hoii naa tuc msg kita naa<br>mein msg kitaa bilkul gl ni hoii but i missed<br>you soo much yrr you are mine my love yrr<br>but ki kra i wanted to give you some personal<br>space<br>I know hun apni gl ni ho rahi te shyd kdi ni<br>hoyegi you are better without me no problem<br>but always remember someone loved you soo<br>badlyy that he always thinks about you, your<br>smile, and you are everything to him</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#047</span>
+    <span class="entry-date">28 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Feeling sad prr ki krr skda yrr shyd eh pyaar mere naseeb ch naii c chlo koini mein kdi rabb nu eh ni keha c mere vste jo thik hoya oo krna mein sirf eh keha c ki jo ohde vste thee…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Feeling sad prr ki krr skda yrr shyd eh pyaar mere<br>naseeb ch naii c chlo koini mein kdi rabb nu eh ni<br>keha c mere vste jo thik hoya oo krna mein sirf eh<br>keha c ki jo ohde vste theek aa oo krna. I am your<br>always well wisher<br>Aaj mein dekhda peya c laptop ch ki yrr mein<br>kina kuch likhya hoya tuhade te sadi 3 din<br>tohh gll ni hoii prr aaj dekh reha c mein<br>tuhade te apni feelings to laike tuhadi ca<br>journey kina kuch likhya hoya yr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#048</span>
+    <span class="entry-date">29 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein harman nu message kita ki yrr mishti nu kehna mein ohde vaste bhot kuch sochya hoya c te eh krde krde mein ohnu apne tuhade vste intentions dsn lag gya tee ronn lag gya yr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein harman nu message kita ki yrr<br>mishti nu kehna mein ohde vaste bhot kuch<br>sochya hoya c te eh krde krde mein ohnu<br>apne tuhade vste intentions dsn lag gya tee<br>ronn lag gya yrr ki dsa kina pyaar aa tuhade<br>nal yrr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#049</span>
+    <span class="entry-date">30 April</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tuc streak bheji dmc dii schi dil kambh gya c mera yrr mein kida explain kraa kii beeti merre te fir tuc meinu dsya ki daadi nuu heart attack aya c ta dmc ch stunt peya schi yr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tuc streak bheji dmc dii schi dil kambh<br>gya c mera yrr mein kida explain kraa kii beeti<br>merre te fir tuc meinu dsya ki daadi nuu<br>heart attack aya c ta dmc ch stunt peya schi<br>yrr ehna regret hoya na meinu khud tee kii<br>yrr eh ki krr betha mein yr ehne din toh koi<br>message ni kita khud nu question krn lag gya<br>c ki yrr mein pagal aa mein yee vo ptani ki aa<br>meinu puchna chahida c sorry yrr hun mein<br>piche ni hatan valla hunnn mein naal hi<br>rahugaa tuhade koll tuc chahe ignore kroo te<br>chahe meinu pyaar kro mein naal hi rahuga<br>you are love of my life</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#050</span>
+    <span class="entry-date">01 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein thnu bhot hsaya te khud vi bhot khush hoya tuc daadi nu aaj meri photo vi dikhaii te aaj bhot khush hoyaa meinn tuc bhot hasse apa bhot glla mariya you are the best yrr pl…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein thnu bhot hsaya te khud vi bhot<br>khush hoya tuc daadi nu aaj meri photo vi<br>dikhaii te aaj bhot khush hoyaa meinn tuc<br>bhot hasse apa bhot glla mariya you are the<br>best yrr please edha hi rehna no nazar<br>please yrr <br>Aaj tuhada reply 8 ghnte baad aya 10 min gll<br>hoi tuc fir gayab and fir tuc raati online aaye<br>fir apa 2 vaje tkk glla mariyaa tee mein thnuu<br>bhott saraaa khush hsaa kee svaayaa and i<br>am very very happy hunn saugaa khush<br>hokee yeeeeeeeeeeeeeee</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#051</span>
+    <span class="entry-date">02 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes i am very happy hun regular gal ho rahi hai but meinu lgda nahi yrr oo meinu psnd krdi hai but ikko umeed te mein tikeya hoyaa ki shyd o ik na ik realise kregi kii haa yrr ik b…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes i am very happy hun regular gal ho rahi<br>hai but meinu lgda nahi yrr oo meinu psnd<br>krdi hai but ikko umeed te mein tikeya hoyaa<br>ki shyd o ik na ik realise kregi kii haa yrr ik<br>bnda si jehda meinu 24/7 aage vdhda dekhna<br>chahnda si meinu pyr nal rkhda si. Mein schi<br>mishti ehna pure kisi vste ni c jina tuhade<br>vste hoya because you are such a pure<br>purest personality i have ever met. Seriously<br>aaj mein golden temple gya si as usual jid da<br>tuc dil nu lagge oo mein gurudwara mandir<br>jake thnu ta mngda hi aa prr aaj jdd mein<br>vapas aake tuhade nal glla battan mariya yrr<br>mein thoda tut gya ki you have others jinu<br>tuc psnd krde oo but ohde ch mein nai aa jdd<br>ki mein nai mera dil tuhade vste nibha reha..<br>chlo. Koini i will be there for you always<br>because mein psnd ni pyar krda. Thank you,<br>you are my princess i am your caretaker😂❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#052</span>
+    <span class="entry-date">03 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">And yes i know mein harman nal gl kiti c, ki krda yr mishtu i have no one for me, i hope you will be there i wanted you to be there for my ups and down because i love you. I just w…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>And yes i know mein harman nal gl kiti c, ki krda yr<br>mishtu i have no one for me, i hope you will be there i<br>wanted you to be there for my ups and down because i<br>love you. I just wanted you. Ghar mere kalesh chal rahe<br>sii mein pareshaan sii meri expectations sii destroy ho<br>gaiya c that ended up texting harman ki mein ohde<br>bare bhot sochya and got into frustration because i<br>never felt love, i know my family loves me but i want a<br>love with whom i can share everything. I thought you<br>are the one. But ended up telling my mental stress to<br>harman ki yes edha si uda si bla bla yr i dont know.<br>Meinu ni ptaa tuc uss cheej nu negative way ch leya ki<br>mein tuhada bhrosa todta shuru ch hi yaa positive<br>leya. Mein actual intentions dsa je ta oo ee si mein<br>ehna k thnu chahna ki apne maade time ch vi tuhadii<br>udeek kr reha c but ended up being alone that got<br>converted into huge emotional disorder for me. Sorry<br>for everything, if you ever need me i will be there for<br>you</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#053</span>
+    <span class="entry-date">04 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">i will never let you repeat your past but build a wonderful future life ahead. Trust me mein duava ch mangeya tenu yrr, bhot pyar krdaa je meri tu na vi hoii taa ehna keh skda kdi…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>i will never let you repeat your past but build<br>a wonderful future life ahead. Trust me mein<br>duava ch mangeya tenu yrr, bhot pyar krdaa<br>je meri tu na vi hoii taa ehna keh skda kdi<br>bhulaga vini yaad rkhaga ki ik kudi nal mein<br>dilo nibhai si dilo pyaar kita c. you are<br>precious never exploit yourself for someone<br>who cared fake for you.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#054</span>
+    <span class="entry-date">05 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Kal raati gll krke bhot sukoon mileya bhot better feel hoya relatability toh laike comfort feel hoya ki yes i have someone jide nal mein sab discuss kr skda vaa. Thank you so much,…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Kal raati gll krke bhot sukoon mileya bhot<br>better feel hoya relatability toh laike comfort<br>feel hoya ki yes i have someone jide nal mein<br>sab discuss kr skda vaa. Thank you so much,<br>yes i am in love with you i will show you this<br>journal one day for sure dont know what will<br>be your reaction will you accept me further<br>or not. But yes i will</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#055</span>
+    <span class="entry-date">06 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I will show you this journal because i want no regret in my life. Mein thnu dilo chahna dilo pyar krda kal tuc mere toh CID bnke puchya ki gf bnana chahte ho uskoo, gf kyo bnana me…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I will show you this journal because i want no<br>regret in my life. Mein thnu dilo chahna dilo<br>pyar krda kal tuc mere toh CID bnke puchya<br>ki gf bnana chahte ho uskoo, gf kyo bnana<br>mein taa apne kol rkh rabb toh beekh<br>mangda ki meinu eh kudi bakshdo bhot<br>saambh ke rkhaga, mera vass chlda hove fir<br>te gf bhot chota term hai mein ta thnu puri<br>life bnake rkha. Ha eh sara hun thnu pdhaan<br>vste likh reha, meinu nai pta apne chh ki<br>hoyega kal nu prr eh sure hogya hai ki mera<br>pyar ni marna hunn kdii schii. Tuhada 1 vdia<br>reply jida meinu khush kr dinda te tuhada 1<br>seen te chdya message meri jaan kdhd<br>dinda. Meinn thnu eh journal dikhauga iss<br>vste ki thnu dikhe tuc kine special o, koi thnu<br>kina pyar krda likh reha. I seriously love you,<br>yes pyar vyar ka chakkar pucha na apne,<br>apse hi pyaar krta hu mein.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#056</span>
+    <span class="entry-date">07 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">We had one of the best discussions last night and pta lgaa kii yrr we both are same copy of each other bhot bhot bhot khushi mili schii dil ehna khush hoke soya na raatii.. one of…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>We had one of the best discussions last night<br>and pta lgaa kii yrr we both are same copy of<br>each other bhot bhot bhot khushi mili schii<br>dil ehna khush hoke soya na raatii.. one of<br>the best conversations everrr yrr.. seriously<br>bhagwan ji meher krn je sadi bndi hai mein<br>taaa bss khushi ds ni skda apnii. No words to<br>say seriouslyy you are the best yr bestt.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#057</span>
+    <span class="entry-date">08 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tuhadi story dekhi maashaallahh!!! Dil khush hogya dekhke. Sohne te tuc bhot oo pr meri najara ch kuch jyadaa hii hoo schii.. hsoo naa schi hoo.. mein apne dona nu kathe iss kr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tuhadi story dekhi maashaallahh!!! Dil khush hogya<br>dekhke. Sohne te tuc bhot oo pr meri najara ch kuch<br>jyadaa hii hoo schii.. hsoo naa schi hoo.. mein apne<br>dona nu kathe iss krke dekhna chahna always ki sadii<br>college life best life bann jave bss yr ik dooje krkee..<br>mein schi aaj bhot khush hoya pta ki hoya meinn online<br>si mein dekhya tuhada meri bheji reel te like aya mein<br>nalii notifications refresh krn lg gya ki meri story te like<br>aayega hunn fir oo agya fir mein sochya yr reply ta<br>bilkul ni aauagaa seriously naal hii aagyaa.. oo bhyii<br>mein pagal hogyaa phone rkhta naalii apnaa ehna<br>khushh table te mukke mare mein yes yes yes bolke fir<br>bhajkee ghr de mandir jake thank you thank you boleya<br>firr aakee reply dekhyaa. Thoda set back vi lagga aaj ki<br>tuc story hide kiti hoi c mere toh but koinii, i lovee<br>youu mein ehnaa panchayati type da person nii.. ik jdo<br>tuc keha naa ki vdia hoyaa tuc puchleya vrna mein<br>kalesh krna c raatii oye hoye dil khush hogyaa ehh ta<br>dekhkee schi muchii.. aaj ik hor si jdd tuc seen te chdta<br>msg te jd mein puchya tuc keha o daadu daadi si fir<br>reply krna bhulgai tdd thoda hurt hoya ki yr hallle mein<br>matter ni krdaa ehna but koinii eh sbb glla bhot<br>chotiyaa mere pyaar aageee.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#058</span>
+    <span class="entry-date">09 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Best day of my life aaj tuhada pehli vaar call aya aapa bhot saari glla mariyaa tuc meinu baiyaa keha and mzaa aagyaa mtlb yrr i am the best i lovee youu sooo much cutie you re min…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Best day of my life aaj tuhada pehli vaar call<br>aya aapa bhot saari glla mariyaa tuc meinu<br>baiyaa keha and mzaa aagyaa mtlb yrr i am<br>the best i lovee youu sooo much cutie you re<br>mine my love my everything i loveeeee you<br>cutieeeeeee you are the bestt yrrr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#059</span>
+    <span class="entry-date">10 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Hanjii good morning. Its 5:20am and i am thinking about you mishtii.. apne ch hun sab bhot vdia haii but kal da din 27 april was very difficult and of mixed energy. You said you ar…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Hanjii good morning. Its 5:20am and i am thinking about<br>you mishtii.. apne ch hun sab bhot vdia haii but kal da din<br>27 april was very difficult and of mixed energy. You said<br>you are commited was trying to prove that but mera dil<br>manke ni raji yrr mein dilo pyaar krda mein aaj tkk<br>insecure ni hoy aaj tk jealosy factor ni aya hun meri jaan<br>nikli pai schii aaj ptani kehda sach dsna tuc after exam<br>meinu nai pta tuc keha khush vi ho skda dukhi vii smjh ni<br>aari overthinking krr reha rabb toh mang reha ehnu mere<br>toh dur naa krio plzz mein bhot smbhal ke rkhuga ye voo,<br>meinu pta kal jdd tuc oo snap bheji meri condition c meri<br>akha ta bhriya prr mein roo ni paya meinn hsna chahya<br>hsana chahya pr khud androo marr reha c kal. Ptani thnu<br>kdi smjh aayega nahi aayega ptani prr meinn bhot pyaar<br>krda yrr eh sbbtemporary nai aa ik vrr mere hoke dekho<br>mein duniya jaan sbb varduu yrr, i always wanted a girl<br>like you, jdd mille tdd ehna pyar pegya kii koii chaara hini<br>c. i love you soo much, but i dont think so you love me<br>back or not. Jee iss janam chh likhya hoya tere nal ta eh<br>best hau. Meinn kisi kudi val ni jna hor tuc hi o jo ho mere.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#060</span>
+    <span class="entry-date">11 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">So yes you confessed that you are not commited. Ptaa yrr kal mein roya vi c mtlbb akha bhriya hoiya c jdd ghr aya mein hun ehh thnu halle ni dss skda pta yrr meinn vapas sirf iss k…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>So yes you confessed that you are not commited. Ptaa<br>yrr kal mein roya vi c mtlbb akha bhriya hoiya c jdd ghr<br>aya mein hun ehh thnu halle ni dss skda pta yrr meinn<br>vapas sirf iss krke aya ki ohnu edha na lagge meri kadar ni<br>yr mere vste bhot keemti oo tuc te oo sirf mein janda<br>vaa. Mein ikk vaar nu sochya c ghar nai jandaa meinn<br>kalla ghumna chahnda sii but yr dil ni maneya mera<br>tuhadi gl ignore krn te. Aaj dil nu schi sukoon mileya and<br>mein bhot khush aa hun najar na lagge bss. We are not<br>commited we are not in a relationship but at least i am<br>with love of my life mein pta kal walk te gya c na mein<br>janke oo route pakdeya jitho gurudwara aavee ki yrr mein<br>thnu manglvaa ik vrr hor shyd tuc committed na hovo.<br>Mein tuhade aage fake ni rehna chahnda ta yrr ethe sabb<br>100% pure heart nal likh dina vaa. I love you so much<br>thank you for being in my life i will always be grateful to<br>have you and hmesha kdar rkhu tuhadi. Aaj jdd tuc bolle<br>naa kii meinu vi ik baiya psnd hai meinuu pta meinn kidaa<br>khushh hoyaa😂😂 Thank you yrr always be mine okayy.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#061</span>
+    <span class="entry-date">12 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes i am crying right now, ki mein ehne joga vini ki thnu apna keh ska apna bna ska rabb ne ehni kamiya dittiya mere ch ki mein thnu apna vini boll skda, chlo koini you will always…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes i am crying right now, ki mein ehne joga<br>vini ki thnu apna keh ska apna bna ska rabb<br>ne ehni kamiya dittiya mere ch ki mein thnu<br>apna vini boll skda, chlo koini you will always<br>be mine, mine in the sense if you need me i<br>will always be there for you, you are mine ta<br>ptani but you are mine top priority ever.<br>Chdo koini mein tuhade intezaar ch hi aa<br>thnu vi pta i love you pr jina thnu pta oo<br>bhot hi ghat hai i seriously love you way<br>more than anyone i ever did. You are very<br>very special for me and glad to have you,<br>have you? I dont know that i have you or not<br>but jinne k vi tuc hoo mein thnu bhot pyar<br>nal rkhu will never let you cry</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#062</span>
+    <span class="entry-date">13 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Apne ch sab sahi c sab vdia c kal pehli vaar apa dono milee c vdiaa c sbb but sari khushi 5 min toh vdh ni reh pai. Mein tuhadi nazar ch sb toh glt insaan bnn gyaa apne ch sbb khtm…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Apne ch sab sahi c sab vdia c kal pehli vaar apa dono<br>milee c vdiaa c sbb but sari khushi 5 min toh vdh ni reh<br>pai. Mein tuhadi nazar ch sb toh glt insaan bnn gyaa apne<br>ch sbb khtm hogyaa. But mein kal himmat ni hari thnuu<br>apne kol rkhn li jaan laati tarle kdhlee te edha hi rahugaa<br>kdi thnu apne toh dur nai jaan daugaa je tuc mere nal o<br>mein kisi vi hadd tk chljuga but will always try to never let<br>you go. Din vdia iss krke ki mein confess kr paya thnu apni<br>sari journal pdha paya and yes i have hope ki tuc sab<br>theek kruge apa fir pehle vang hovage mein pehle bhot glt<br>c i know mein manda pr hunn mein tuhade krke. Ik meri<br>life ch oo special person krke mein pura badal gya c but<br>badalan toh baad mere nal eve hojuga mein kdi sochya<br>hini c mein bhot glt c mein manda but hun nai yrr thnu<br>hurt kita prr dilo ni kita yr mere intentions bhot pure<br>sigge yr shuru toh thnu mein sara pdhaya hi hai. Apne ch<br>kuchvi sahi ni hoyaa beginning toh hi but ki pta yr ehde ch<br>hi koi best memory bne apni ki ha edha hoya c and apa<br>dona ne milke manage kita, yr positive ehna soch reha ki<br>sab pehle nalo vi behtar hoju and negative ehna soch<br>reha ki yr je mere toh dur hogi mein kithe jau yr😭</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#063</span>
+    <span class="entry-date">14 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I know tuhade dil ch question aa skda ki jida past nu chdya meinu vi chd du and all.. yrr frk sirf ehna k hai ki ansh pehle kuch hor c hun kuch hor yr mein aaj tk ni edha roya c ki…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I know tuhade dil ch question aa skda ki jida past<br>nu chdya meinu vi chd du and all.. yrr frk sirf<br>ehna k hai ki ansh pehle kuch hor c hun kuch hor<br>yr mein aaj tk ni edha roya c kisi vste jida mein<br>kall tuhanu khoo ke royaa yrr.. mein dilo krda yrr<br>koii matlab ni koi mera glt intention ni sab purity<br>hi aa yrr.. and rahi gl thnu chdn dii apa nu gl<br>krdee jyada din ni hoye mein tavi pura hil gyaa<br>thnu khoyaa dekhke apne tohh.. pehle kuch hor<br>c yr hun kuch hor a yrr plz</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#064</span>
+    <span class="entry-date">15 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Rabb aage tarle kdhdaa yrr tuhade naam de tuc mera pyaar oo yrr please mere toh dur nai hona yr please cutie Meinu nai pta Mishti ki ho reha yr, mein thnu pyar krda te bhot krda. M…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Rabb aage tarle kdhdaa yrr tuhade naam de<br>tuc mera pyaar oo yrr please mere toh dur<br>nai hona yr please cutie <br>Meinu nai pta Mishti ki ho reha yr, mein thnu<br>pyar krda te bhot krda. Meinu kuchni chahida<br>sirf tuc chahide oo yr mere nal chahide o yr.<br>mein bhot glt reha bhot hi glt insaan reha yr<br>pehli vaar apna ik better sweet version dekh<br>reha tuhade krke yr. mein rabb kolo thnu<br>mangda , thnu jida mein pyar krda, mein jnda<br>o pyar ki hai, te schi ehna pyar kdi ni kr pau<br>thnu jina mein kruu jina mein kadar kru koini<br>kr pau jina mein important rkhu special rkhu<br>oo koini kr pauu ik vaar azmaa ke dekhoo yrr</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#065</span>
+    <span class="entry-date">16 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">The way i love you now is way way way too much now, haa halle mein bol ni panda chat tee thoda shrmana, shrmanda ni mein drda ki tuc mere toh dur na ho jao. Haa tuc hun sbb jande h…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>The way i love you now is way way way too<br>much now, haa halle mein bol ni panda chat<br>tee thoda shrmana, shrmanda ni mein drda<br>ki tuc mere toh dur na ho jao. Haa tuc hun<br>sbb jande ho mere intentions toh laike mera<br>pyar pr mein halle vi ehi kehna ki thnu halle<br>10% vini pta. Jo tuc mere vste ho oo kisi vste<br>ni ho skde tuhanu laike mere mann chh kdi<br>words khtm ho hini skde. Tuhade low ch mein<br>thnu hsana chahna tuhade high chh thnu<br>aage vdhana chahna. Tuc sochde o relation<br>chajde ni hunde mein thnu dsugaa ki actual<br>reality ki honii chahidi, nehre ch rkhke ni prr<br>actually dsna chahna kii what you will be for<br>me if you are mine!</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#066</span>
+    <span class="entry-date">17 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes i shared today ki jovi hoya didi vi involve hoye and finally mein didi aage kisi kudi nu laike commit kita ki meinn ik kudi nu pyar krda ohda naam mishti hai! Mein khush aa aaj…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes i shared today ki jovi hoya didi vi involve<br>hoye and finally mein didi aage kisi kudi nu<br>laike commit kita ki meinn ik kudi nu pyar<br>krda ohda naam mishti hai! Mein khush aa aaj<br>meri khushi da koi thikana nai and mein bss<br>bhot khush aa ki yes i have someone, jinu<br>mein dilo pyar krda, oh mere te trust krdi hai<br>and all i want is her presence. I love you<br>breathing around me seriously tuc meinu<br>kehne oo jnab tuhadi ki expectations ne mein<br>eh expect krda ki hunn please koi hor na<br>hovve bss tuc hovoo bss tuc hi rvoo sb kuch<br>mere, meri jindagi da part ni pr jindagi bnke<br>mere nal rvvvo. I am seriously a changed<br>personality now, i am the same person but<br>for others but a special personality for the<br>one special person, the one i love the most.<br>Sorry for everything i did and sorry for<br>everything you faced. But from now you will<br>see the best memories. I swear</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#067</span>
+    <span class="entry-date">18 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein tuhade nal didi add kraye, yes mein didi nu dss chuka c ki mein thnu psnd krda mein thnu pyar krda mein dsyaa te aaj hi dsya. And she was happy because mein hun actually kisi…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein tuhade nal didi add kraye, yes mein didi<br>nu dss chuka c ki mein thnu psnd krda mein<br>thnu pyar krda mein dsyaa te aaj hi dsya. And<br>she was happy because mein hun actually<br>kisi nal dilo nibha reha dimag nal nai, oo vi<br>jandi hai mein kdi kisi di kadar ni kiti te hun<br>oh eh vi jandi ki mishti de dur hoye te mein<br>akha bhariya c.. oo meri gurantee chakan lai<br>tyar hai tuhade aage iss krke ni ki mein ohda<br>pra vaa but iss krke ki oo hun jandi hai ki ansh<br>kina pyar krda thnuu. Meinu ni pta tuhade dil<br>ch ki hai tuc ki chahne o apne partner ch ki<br>admire krde oo prr right now mein jine vi<br>efforts kr reha oo thnu apna bnan vste ta hai<br>hi prr uss toh vdhh iss vste hai ki tuc mishti<br>mere vste kine jroori oo, kine special oo</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#068</span>
+    <span class="entry-date">19 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes aaj mein thoda hurt jroor hoyaa jdd tuc meinu kehaa ki please tuc meinu ehna special na bnaoo tuc hurt hauge ye voo.. je thnu apna na bnaa paya ta khud nu maaf krlaga?? Ki khud…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes aaj mein thoda hurt jroor hoyaa jdd tuc<br>meinu kehaa ki please tuc meinu ehna<br>special na bnaoo tuc hurt hauge ye voo.. je<br>thnu apna na bnaa paya ta khud nu maaf<br>krlaga?? Ki khud dii kamiyaa ginn ni chd<br>duga? Thnuu dur krke khud khush reh luga??<br>Ki hurt better aa ya regret better a?? Mere<br>according ta hurt better hai. Mein kdi thnu<br>force ni krda kdi thnu convince ni kita ki<br>relation ch aao edha rahuga uda rahuga mein<br>muhoo commitments deke apne intentions<br>proof krn nallo thnuu chahna tuc khud dekho<br>mere ki intentions hai .. muho bol ke proof<br>krn naloo mein thnuu dikhana chahna kii you<br>have someone who truely loves you. Tuc<br>meinu keha c ki pehle vi kisi ne edha jhoothe<br>larey laaye meinu special treat kita baad ch<br>sbb ulta krtaa.. meinn ta kdi apne bare kuch<br>proof kita hini, ha efforts kitee ta kitte ki thnu<br>khona ni chahnda te tuhade te haar nai<br>manna chahhnda, pyar krda koi majak nii,<br>thnu khush kina rkhuga mein eh jnda hor koii<br>naii</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#069</span>
+    <span class="entry-date">20 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Hune apna hassa majak chl reha c tuhade bare gl hori c tuc keha ki eh option mtlb mishtii unavailable hai.. hun mein dsda unavailable nu laike mera perspective Tuc unavailable hoo,…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Hune apna hassa majak chl reha c tuhade bare gl hori c<br>tuc keha ki eh option mtlb mishtii unavailable hai.. hun<br>mein dsda unavailable nu laike mera perspective<br>Tuc unavailable hoo, prr ki mein haar chukaa?? Mein pyar<br>krda ki sirf haa ya naa sunan tk krda?? Ki meinn jvaabb<br>nuu tuhade reply nu pyar krdaa yaa thnu krda?? Khud nu<br>puchoo?… harman ne meinu keha c try krke dekhlo je bndi<br>gll.. je gll kll try te mukki hundi ta aajj mere vste tuc jroori<br>na hunde apni gl na hori hundii. Muh maran ala hisab ni<br>krna chahnda mein ki chlo eh nai ta koi hor sahi.. haa<br>sabar rkh reha sabar jroor temporary hunda prr ik gl hai<br>pyar mera permanent hau, mein chdke ni jnda thnu prr jd<br>kdi confirm hoyega ki mein thnu tang kr reha sirf pyar toh<br>laike kala kala effort mera tuhadi life ch value add ni kr<br>reha ta mein distance jroor lailuga prr pyaar,, pyaar sirf<br>thnu hi kr pauga hunn.. tuhade kisi jvab nuu ni mein<br>mishti nu pyar krda mishtii nuhi krugaa. Mere vste mishti<br>jroori mishti hi sab hai, te je rabb thnuu bakshda hai na<br>meinuu thnu smbhalan vste, seriously tuhada parivar vi<br>bolu kllnu ki kithoo lbheya c tu eh munda.. tdd boleyo ki<br>lbhya ni c bss pyar krda c meinu</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#070</span>
+    <span class="entry-date">21 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mere intentions bare kuch likhna chahnda c prr ehi soch reha describe kida kra apna pyaar. Describe edha krda ki mein aaj tkk rabb toh sirf materialistic cheeja hi mangiya c and pe…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mere intentions bare kuch likhna chahnda c<br>prr ehi soch reha describe kida kra apna<br>pyaar.<br>Describe edha krda ki mein aaj tkk rabb toh<br>sirf materialistic cheeja hi mangiya c and<br>pehli vaar mein kisi person nu mangeya oo<br>ho tuc te 1-2 vaar ni bhot vaar hrr rojj chahe<br>mandir gurudware de andar jake chahe<br>baharoo. Pta ehna vehmi hogyaa mein reel<br>show hoi c ki shiv se kuchbhi mango mil jaata<br>hai hun jdd vi walk te jaana specially oh road<br>toh aana jithe shiv ji di murti hai and thnu<br>mangke anaa.. dilo chahnaa thnu schi muchi</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#071</span>
+    <span class="entry-date">22 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I am in gym right now, and tuhade bare hi soch reha c. Kal tuc ik gl bolee kii tuc sure oo?? Meri surity da puchdee oo jnab tuc?? Mere vrge bnde vste family toh upr kuchni hai ohna…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I am in gym right now, and tuhade bare hi<br>soch reha c. Kal tuc ik gl bolee kii tuc sure<br>oo?? Meri surity da puchdee oo jnab tuc??<br>Mere vrge bnde vste family toh upr kuchni<br>hai ohna aage ijjat toh upr kuchni hai and je<br>mein tuhade bare dsya aa na taa mere vste<br>tuc sbb toh upr oo, surity?? Surity ehni aa ke<br>je ik vaar mere hogge mein ghr daava krda<br>mere ghrdi sb toh ladli beti hauge tuc❤️.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#072</span>
+    <span class="entry-date">23 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Apne dona vich kaafi mixed energies aa yrr te oo shyd iss krke ki tuc confused oo yrr meinu laike, thnu smjh ni aari ho ki reha. Thnu mein sahi vi lg reha glt vii lag reha, thnu jo…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Apne dona vich kaafi mixed energies aa yrr te<br>oo shyd iss krke ki tuc confused oo yrr meinu<br>laike, thnu smjh ni aari ho ki reha. Thnu mein<br>sahi vi lg reha glt vii lag reha, thnu jo ho reha<br>oo sahi lg reha kyoki sab tuhade according<br>ho reha hun prr unexpected aa butt tuhade<br>dreams di reality vi aa, yes i know everything<br>because i loveeee you. Jehda pyar krda<br>hunda dilo oo sbb smjhda vi hunda</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#073</span>
+    <span class="entry-date">24 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tuc pehli vaar meinu miss you boleya😂 ❤️. Oyee hoyee best feeling ever yrrr mein amritsar gurudware aya c golden temple and yrr mein ehna khushh ehna jyada khushh mein kida dsa…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tuc pehli vaar meinu miss you boleya😂<br>❤️. Oyee hoyee best feeling ever yrrr mein<br>amritsar gurudware aya c golden temple and<br>yrr mein ehna khushh ehna jyada khushh<br>mein kida dsaa yrr mein ehni vrr thank you<br>boleya ehni vaar thank you boleyaa. Pta<br>mein aaj dubara kyo ayaa vaaa ? Thank you<br>boln rabb nu ki apne chh ehna kuch hoya 30<br>april vala din, but sbb theek kita waheguru<br>ne thoda thnu mere toh dur krta but i love<br>you always and always❤️❤️. Bss aaj thnu<br>dubaraa thank you boln ayaa yrr i love youu<br>thank you rabbaa yr🥹❤️🧿</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#074</span>
+    <span class="entry-date">25 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mein kdi ehna religious ni c jina hun bnn gya just because i want you in my life. Meinu smjh ni andi ki ehna khush kismat mein aa ke tuc oo, mein iss krke kii mein thnu ehna pyar k…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mein kdi ehna religious ni c jina hun bnn gya<br>just because i want you in my life. Meinu<br>smjh ni andi ki ehna khush kismat mein aa ke<br>tuc oo, mein iss krke kii mein thnu ehna pyar<br>krr paya ki mein thnnu duava ch mangan lag<br>gya and tuc iss krke ki someone really loves<br>you from bottom of his heart, and yes thats<br>me. Sabb thukra dena chahna hun ikk tuhade<br>vste bss apna krn vste thnu. Amritsar gya<br>hoya c mein, hafte baad dubara chala gya<br>kyokii lalach iss gll da c ki shyd dubara<br>dubara mangaga ta shyd tuc meinu mil jauge</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#075</span>
+    <span class="entry-date">26 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Haa kai vaar mein hurt huna, fir overthinking ch jnaa bhot kuch hunda but mein hurt tdo huna jdoo tuhada call ya text nai anda mein khud nu valueless, ptani ki kii smjh lenaa even…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Haa kai vaar mein hurt huna, fir overthinking<br>ch jnaa bhot kuch hunda but mein hurt tdo<br>huna jdoo tuhada call ya text nai anda mein<br>khud nu valueless, ptani ki kii smjh lenaa<br>even akha tkk bhr lena prr kdi thnu show ni<br>hon dinda kyoki mein chahna kii thnu ik apne<br>nal happy place de skka, mere vste tuhade<br>toh upr kuchni, jina mrji mood khrab hove ik<br>tuhade nal 5 minute gll mera din bna dindi<br>hai</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#076</span>
+    <span class="entry-date">27 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Mishti jina pyar mein krda oo thnu koi shyd hi kdi krr pauu, mein kdi kisi vi person nu laike ehna serious nai hoyaa thnu pta hi aa sabb and dont know what you want but my only urg…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Mishti jina pyar mein krda oo thnu koi<br>shyd hi kdi krr pauu, mein kdi kisi vi<br>person nu laike ehna serious nai hoyaa<br>thnu pta hi aa sabb and dont know what<br>you want but my only urge is to give you<br>what you deserve doesnt matter ki oo<br>tuhadi expectations meet krda hai ya<br>nai but jovi mein tuhade vstee aa oo sirf<br>tuhade vste hi and sirf ohi krda jide tuc<br>deserving ho and hmesha rahuge. Jo aaj<br>aa oo kdi change ni hauga pr tuhadi<br>khushi vste mein kisi vi level te jaan nu<br>ready a</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#077</span>
+    <span class="entry-date">28 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein Hanuman ji de mandir gya c tuesday si na, and yr jaan da purpose bss eh c kii yr mein thnu pyar krda thnu hi mangan geya c, hun mein eh journal thnu nai pdhani ehi sochya…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein Hanuman ji de mandir gya c<br>tuesday si na, and yr jaan da purpose bss eh<br>c kii yr mein thnu pyar krda thnu hi mangan<br>geya c, hun mein eh journal thnu nai pdhani<br>ehi sochya hoya and mein sabb likhugaa jo<br>mera dil kahega. Mein pyar krdaa te ehna<br>religious pehle kdi ni si jina hun hoyaa te<br>ohda kran tuc oo ki yr mein thnu chahna apni<br>life chh ehna pyar krda rabb aage tarle krda<br>🥹❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#078</span>
+    <span class="entry-date">29 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes another day writing about you! Yes i am in love with you and aaj mein ik reel dekhi c ki je kisi vi cheez nu tuc apni life ch chahne oo pyar krde oo ta ohnu visualise krna shur…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes another day writing about you! Yes i am<br>in love with you and aaj mein ik reel dekhi c<br>ki je kisi vi cheez nu tuc apni life ch chahne<br>oo pyar krde oo ta ohnu visualise krna shuru<br>kro and mein aaj thnu always manifest krn<br>vste phone da pass hi 1810 rkhta and after<br>few hours mummy ne phone mangleyaa oo<br>kehnde kii hai pass pehle ta shivi di dob si,<br>mein kehana 1810 chahnda si prr ki kehnda<br>mien edha hi faceid laake deti. Mein ehh<br>thnu aaj ni dssugaa thnu edha lagega ki kina<br>desperate hai but what i want is thnu eh<br>dikhe kii THERE IS SOMEONE WHO LOVES<br>YOU TRUELY WITHOUT ANY MATLABB BUT<br>A CLEAR INTENSION, I PROMISE HISTORY<br>WILL NOT REPEAT WILL LOVE YOU LIKE<br>NEVER ANYONE DID, I LOVE YOU</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#079</span>
+    <span class="entry-date">30 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">YEAH I AM WAITING FOR YOU EVERY NIGHT, bhot pyar krda hun hor koi vajood hini reha life ch you are the one and the only one jinu mein apni prayers ch mangeya jinu mein pyar kita oh…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>YEAH I AM WAITING FOR YOU EVERY NIGHT,<br>bhot pyar krda hun hor koi vajood hini reha life<br>ch you are the one and the only one jinu mein<br>apni prayers ch mangeya jinu mein pyar kita<br>ohvi dilo and jide vste pehli vaar ehna pure<br>hoya. Thnu pta mein aaj tk kdi ni keha kisi nu kii<br>jee chdogi ta tuc chdoge mein ni, kyoki meinu<br>pta hunda ki one wrong thing and i will<br>disappear mein edha di personality aa.. i know<br>eh glt haii kii mein sab bhul jna smne vale ne<br>mere nal ki ki vdia kita but 1 cheej jo meinu dilo<br>hurt krje dilo pinch krje, i just disappear. But in<br>your case mein bhot pehle hi ik gl bolti c<br>Je insaan jroori hauga ta gl bhul jaugaa, te jee<br>gll jroori haugi ta insaan.<br>Hun mere vste insaan ehna jroori hai ki mein<br>apne akhri saah tkk thnu apne naal dekhna<br>chahna and ehde vste hrr hdd tkk jaan nu tyar<br>aa mein. I just want you with me, mine</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#080</span>
+    <span class="entry-date">31 May</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj mein thoda hurt hoya kyoki aaj khud nu bhot valueless feel kita mein, tuhade toh tuhada jhumka mangeya c, thnu apni life ch sb toh upr rkhda hun te dilo pyar krda ta mangeya, m…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj mein thoda hurt hoya kyoki aaj khud nu bhot<br>valueless feel kita mein, tuhade toh tuhada jhumka<br>mangeya c, thnu apni life ch sb toh upr rkhda hun te<br>dilo pyar krda ta mangeya, merekolo 100 navve<br>jhumke lelo prr ikk apna jhumka dedo, mein<br>valueless tdo feel kita jd mein jhumke te naa hoi tee<br>gussa dikhaya pr tuc 1 min livini meinu smjhn di<br>koshish ni kiti, meinu jhumka na dinde sahi si prr<br>ghato ghat meri gl ta sunde puchde ta sahi kyo<br>chahida. Tdd mein tut gya mein bhikhar gya pr haar<br>mnjva? Khyal vini. Aya,  bhot pyar krda te hmesha<br>kruga chahe gll hovve na hovve. Mein pyar krda meri<br>tuhade nal gll hove na hove ptanii prr mein hun oo<br>mohabbat kiti hai jo thnu koi kdi ni krr pauga i swear.<br>Meinn naraz kida reh lva mein saradin udeekda<br>tuhade bare puchn lai, ki mein muh fulaan vste krda,<br>haa apna hakkk smjhda gussa krna prr jd edha<br>avoidance ignorance mile fir thoda tut jna prr judd<br>sirf ik khwaab nal jna ki kash o meri ho jave. Oo<br>regret ch ni rehna chahnda ki kash thode hor efforts<br>krr lainda. Bhot pyar krda yr kdi smjhn di jroor<br>koshish krio</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#081</span>
+    <span class="entry-date">01 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I dont know ki ho reha yrr tuc kyo ni gl kiti aaj ki hoya hai halle vi message ni dekhyaa hoya meinu smjh ni ari yr mishti I know you are in pain. Mein pain ta ni theek kr skda pr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I dont know ki ho reha yrr tuc kyo ni gl kiti aaj<br>ki hoya hai halle vi message ni dekhyaa hoya<br>meinu smjh ni ari yr mishti <br>I know you are in pain. Mein pain ta ni theek kr<br>skda pr mein tuhade nal khdd tuhada dardd<br>sunke smjh skda mein thnu hssan vste puri<br>koshish kr skda, bss ehna k kehna chahuga i<br>am with you can not divide the pain but can<br>support you make you laugh no matter what<br>the situation is, you are my special noone can<br>have your place❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#082</span>
+    <span class="entry-date">02 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Kal raati bhot hi serious conversation cho nikle apa meinu ni pta tuhade dil ch ki hai ki nai kyo tuc meinu laike double minded rehne oo but seriously tuc life de bhot gnde loop ch…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Kal raati bhot hi serious conversation cho<br>nikle apa meinu ni pta tuhade dil ch ki hai ki<br>nai kyo tuc meinu laike double minded rehne<br>oo but seriously tuc life de bhot gnde loop<br>ch fss ree oo mein eh sab cheeja dekhiyaa ne<br>sukh nal kdii sahiaa nai,but mein schi kehna<br>life bhot bhot problem full rahegi edha if you<br>do not decide to open up everything. Kuch<br>cheeja apne aap nai hundi deliberately khud<br>nu push krna penda uss vall</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#083</span>
+    <span class="entry-date">03 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Yes i corrected everything yesterday, vadde didi ghr c mein meinu pta mein khud nu kida smbhaleya and kida sab theek krn da sochya saari raat jagda reha kyo? Kyoki mein schaa pyaar…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Yes i corrected everything yesterday, vadde<br>didi ghr c mein meinu pta mein khud nu kida<br>smbhaleya and kida sab theek krn da sochya<br>saari raat jagda reha kyo? Kyoki mein schaa<br>pyaar krda vaa vyapaar nii. Pyaar krda sab<br>thik krna chahna thnu sahi life dena chahna<br>thnuu dikhana chahna zindagi kini jyaada<br>sohni haii yrr te koi thnu kina jyada pyaar te<br>shidddat nal chahh skda hai</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#084</span>
+    <span class="entry-date">04 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Meinu pta mera mann kida bhreya peya prr chal thik hai yrr khud nuu ehna dekhn lg gya taa thnu kida smbhaluga, i love you jaan vsdi hai tuhade ch Aaj bhot vdia conversation hoii yr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Meinu pta mera mann kida bhreya peya prr chal<br>thik hai yrr khud nuu ehna dekhn lg gya taa thnu<br>kida smbhaluga, i love you jaan vsdi hai tuhade ch <br>Aaj bhot vdia conversation hoii yrr the best<br>yrr you are the best yrr ehna khush hoke<br>sonn lgaa aa naa pyaar aagya tuhade te<br>mann krr reha zor di hug krlvaa ehni pyaari<br>kudi oo yrr hsde reha kro taa</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#085</span>
+    <span class="entry-date">05 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">I dont know tuc meinu laike kis kis gl te double minded oo prr mein iss toh pehle eh sb te focus kra mera pehla focus mishti tuc oo. Thnu pta mein overthinker aa and mein tuhade ba…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>I dont know tuc meinu laike kis kis gl te<br>double minded oo prr mein iss toh pehle eh<br>sb te focus kra mera pehla focus mishti tuc<br>oo. Thnu pta mein overthinker aa and mein<br>tuhade bare vi bhot sochdaa and mein khud<br>nal glla krda tuhade bare. Mein ik heavy<br>conversation issi cheej upr krna chahna jide<br>vich mein thnu smjhavaa ki tuc life ch ki glti<br>kr rahe o. Mein chahna mein eh conversation<br>milke kra tuhade nall naki chat te. Heavy<br>conversation vi krni jroori aa mein kalla<br>hasse majak tk ni prr tuhade dil da dukh<br>vandna chahnaa.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#086</span>
+    <span class="entry-date">06 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Tuc meinu kehne o ki attach na hovo ye vo i dont know tuc ehne heavy minded kida hoge shyd meri hi glti c ki mein apna love ehni jldi show krta but mera intention oo nai cki thnu h…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Tuc meinu kehne o ki attach na hovo ye vo i<br>dont know tuc ehne heavy minded kida hoge<br>shyd meri hi glti c ki mein apna love ehni jldi<br>show krta but mera intention oo nai cki thnu<br>heavy feel krava.. thnu ptaa mein aaj tk<br>tuhadi breakup story oo glla jo thnu hurt<br>krdia o sb puchn di koshish kyo nai kitii, kyoki<br>mein thnu dikhana chahna WHO YOU ARE?<br>WHO YOU ARE FOR ME? WHAT YOU<br>DESERVE! Tuhadi story sunke shyd smjh jva<br>thnu kida rkhna chahida, pr mein smjhna iss<br>krke ni chahnda taki mein oo natural ik actual<br>person apni heart feelings nal treat krr pva<br>thnu jina krna chahna mein oo kraa kuch<br>sikhke kuch smjhke nai prr ik oo person bnke<br>jo khud bneya. I will give you what you<br>deserve, not what you expect. Now my<br>efforts does not matter according to your<br>expectations but exactly what you deserve<br>and please let me give you what you<br>deserve.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#087</span>
+    <span class="entry-date">07 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tamanna naaam di ik kudi nal gll hoi tuc meinu baar baar puchre c ki tuc hnn hnn krke kyo kiti gll chaj nal kyo ni kiti and meinn thnu hun kida smjhava mein pehli vaaar pyaar p…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tamanna naaam di ik kudi nal gll hoi tuc<br>meinu baar baar puchre c ki tuc hnn hnn krke<br>kyo kiti gll chaj nal kyo ni kiti and meinn thnu<br>hun kida smjhava mein pehli vaaar pyaar<br>paya tuhadee ch madam. Mein pyar kr reha<br>vyapar thodi ki chlo ik ne mera pyar ni<br>kharidya ta kisi hor nu chaip do. Pyar krda<br>mein, pehle bhot flirter si batheri bhori hai<br>kudiya toh attention laini kinu nai psnd prr<br>hun jindagi ch tuhade toh ilava koi chahida<br>hini naa hi yaar dost na koi horr bss tuc mtlb<br>tuc. Pyar krda te pehli vr edha da pyar hoya<br>mein ehh moment nu hi enjoy krnaa chahna</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#088</span>
+    <span class="entry-date">08 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj bhot glla amriya khud nall te ik cheej smjh aai ki mera love hun burden bnan lg gya c, thnu fear of love ta hai hi but hun thnu meri vjah toh fear of hurt someone te oo someone…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj bhot glla amriya khud nall te ik cheej<br>smjh aai ki mera love hun burden bnan lg gya<br>c, thnu fear of love ta hai hi but hun thnu<br>meri vjah toh fear of hurt someone te oo<br>someone mein aa eh fear vi aa chuka c but<br>thnu clear kida kra kii merekol khon nu kuch<br>nai haii tuhadee siva. Mein hurt huna bhot<br>var hoya prr pta tuhade nal 5 min gl krke<br>theek vi ho jnaa pta kyo? Kyoki pyar krdaa.<br>Koi esi gl ni koi esi situation ni hun jehda<br>mera pyar dhak dave. Pehle vi relation ch<br>reha prr situations edha di bnjndia kii love<br>fadeout ho janda but mere case ch fadeout<br>da reason sirf ik c MERI EGO mein egoisitic c<br>te eh cheej jd mein khtm hundi dekhi tuhade<br>vste tdd smjh aya ki actually love her and will<br>never step back from her.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#089</span>
+    <span class="entry-date">09 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Thnu pta je kisi din tuc meinu apne toh dur krna chahoge na uss din hurt hauga mein prr hmesha vaada krda meinn tuhadi khushi vste kisi vi hadd tkk ja skda prr thnu kalla chdna kdi…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Thnu pta je kisi din tuc meinu apne toh dur<br>krna chahoge na uss din hurt hauga mein prr<br>hmesha vaada krda meinn tuhadi khushi vste<br>kisi vi hadd tkk ja skda prr thnu kalla chdna kdi<br>vini chahugaa, tuhanu apne naal rkhh pyar toh<br>laike life sabb dena chahna. Koi vi reason ni<br>lbhna chahnda thnu chdnn daa kyoki gl pta ki<br>aa, mein mandi gurudware jake thnu mangda.<br>Haa jee tuc sochleya ki mere toh dur honaa<br>mein hojauga tuhadi khushi vste kdi tang ni<br>krugaa but ik gl hai. Mein na mishti rabb toh<br>thnu mangda and bolda ki ohnu khush rkhn di<br>pyar krn di jimmewari meri. Prr jis din tuc dur<br>hoge uss din thnu manguga jrorr vapas prr ik gl<br>boluga ki oo tuhadi dhee aa rabba khush rkhio<br>ohnu jithe vi hai kdi glt hatha ch na bhejio.<br>Ansh hmesha tenu pyar kru hunn tu chahe hoi<br>meri ya nai bss frk je kdi aya ta aaj teri khushi<br>di jimmewari chkda frk ch eh hauga ki rabb toh<br>teri khushii di maang kruga guzarish kruga<br>tuhadi khushi di, thnu mangna ni chduga</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#090</span>
+    <span class="entry-date">10 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj fer sara din ignore no reply thnu call krr krr ke online krva reha c ki yrr thodi der gl krlo. Te pta eh meri ni eh tuhadi khushi vste si yrr ki thnu khush krr dva mein ta tuha…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj fer sara din ignore no reply thnu call krr<br>krr ke online krva reha c ki yrr thodi der gl<br>krlo. Te pta eh meri ni eh tuhadi khushi vste<br>si yrr ki thnu khush krr dva mein ta tuhade<br>bare hi sochda rehna te sirf ehi sochda yrr ki<br>bss ehnu kise tarikee sahi krla ehnu aage<br>vdhala ehnu dikhalvaa pyaar ki hunda.<br>Tuhadi khushi vste ego 0 kiti vrna kinu hi<br>shonk hunda yr ego 0 krn da. But at last, i<br>love you be happy always thats what i<br>manifest now</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#091</span>
+    <span class="entry-date">11 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Ha apna bond hun hor vdia hunda ja reha edha hi bhagwan ji kirpa rkhnn najar na laggee jida pehle laggi c. Bhot pyar krda thnu eh ansh te vaada krda mein pehle jida vi reha jo aaj…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Ha apna bond hun hor vdia hunda ja reha<br>edha hi bhagwan ji kirpa rkhnn najar na<br>laggee jida pehle laggi c. Bhot pyar krda thnu<br>eh ansh te vaada krda mein pehle jida vi reha<br>jo aaj tuhade vste aa kisi vste ni c and kisi<br>vste ni haugaa. Ehna pyar kruga ehna pyar<br>krugaa tuc kehne o na mein pareshaan<br>hojuga😂. Pareshaan di gl krde o ji tuc??<br>Meinn thnu rojj rabb toh mangdaa rojj binaa<br>1 vi din chdee roj mangdaa. Jinu dilo<br>mangeya hovvee ohh pareshaani ni hundi<br>pyar hunda, sabr da fall hunda. Mein thnu<br>tyagan da ni sochyaa hmesha paan da<br>sochya pyar krn da sochya te edha hi rahuga<br>no matter what!❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#092</span>
+    <span class="entry-date">12 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Tuc meinu kehne o mein tang hojugaa mishti ik gl dsoo, tuc vi life nu smjhdee ooo. Ki kisi insaan vste khud nu badal lena choti gl hai? Mein ta pehla ansh pura tyaag chuka te anne…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Tuc meinu kehne o mein tang hojugaa mishti<br>ik gl dsoo, tuc vi life nu smjhdee ooo. Ki kisi<br>insaan vste khud nu badal lena choti gl hai?<br>Mein ta pehla ansh pura tyaag chuka te anne<br>vang pyar krdaa mein tang hojuga? Oo<br>malkinn mera pyar aa tuu❤️ kdi ni bhulaa<br>skdaa thnuu. Jo tuc mere vstee oo kisi vstee<br>nii ho skdee i swear, bhot bhot khush rkhugaa<br>mera vaadaa kdii meri avaz tk ni uchi haugi<br>jnab tuhade vste ehna smbhal ke rkhugaa<br>apne kol rkhugaa</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#093</span>
+    <span class="entry-date">13 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Ha meinu ptaa tuc self doubt krde oo khud nu CA nu laike. Thnu pta mein thnuu oo vibe ni dena chahnda ki haa anshh meinu hath fdhke turayega. But what i want to be with you is ki m…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Ha meinu ptaa tuc self doubt krde oo khud<br>nu CA nu laike. Thnu pta mein thnuu oo vibe<br>ni dena chahnda ki haa anshh meinu hath<br>fdhke turayega. But what i want to be with<br>you is ki mein tuhada hath fdhke rkha pura<br>time, jithe tuc giroge thnu mein chakkaa<br>tuhade kapde saaf kra te jithe thnu apni life<br>heavy lgri tuhada hath ghutke fda te bola kii<br>mein haigaa naa tu fikr naa krr sabb theek<br>hoyega sabb theek krage bhot aage vdhage<br>te bhot vddaa kuch krke dikhavage. Tuc halle<br>apni inconsistency nu dekhke khud nu<br>judgements dine o chaj nal pdh ni pande ta<br>khud te doubt krde o. Madam ik gl kdi sochi ki<br>jo pdhde o smjh ajnda kdi eh sochya ki jithe<br>duniya nu kal da ni pta thnu agle 20 saala da<br>pta?? Khud nu dekho kini aagee ups and<br>down aange othe mein khda rahuga tuc kyo<br>fikr kre oo❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#094</span>
+    <span class="entry-date">14 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Tuc khud te self doubt krn da reason sirf ik clear vision ni but blurry vision hai. Tuc apne path nu laike clear oo but path vste clear ni ho, tuc ups and down jande o aange pr dow…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Tuc khud te self doubt krn da reason sirf ik clear<br>vision ni but blurry vision hai. Tuc apne path nu<br>laike clear oo but path vste clear ni ho, tuc ups<br>and down jande o aange pr down toh drde oo first<br>attempt ch krna chahne oo pr failure da khauf<br>khane oo. Kalle handle krn toh drde oo kalle hi<br>rehna chahne oo. Apne aap nu ehna k strong kr<br>chuke oo ki ghrdeya aage vi apni tension ni show<br>kr pauge, ca da failure shyd ghrde vi smjhn pr tuc<br>ghrdeya nu smjhan di koshish krugee pr je mein<br>kvaa ki ca da failure ayega hini fir?? Tuc puchugge<br>kivve. Kivve da jvab sirf ik hai mishti, Kdi give up ni<br>krn daugaa. Mein khud nu stand krugaa prr thnu<br>stand krn ch apne toh vdhh jaan laugaa. Khud nu<br>stand iss vste kii tuc jee kithe ghat rahhe te thnuu<br>backup krn vala mein hova. Tuhadi responsiblities<br>tuc puri krogee i know but uss cheej di backing<br>mein kr skka. No one can replace you but i can be<br>your back ❤️. Tension na lo i have long future<br>plans with you sabb soch chuka. Mera vaada hai,<br>you will love your life❤️</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#095</span>
+    <span class="entry-date">15 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Tuc ghr di vaddi kudi oo te khud de emotions hide krna tuhadi adat bann chuki hai. Tuc overthinking krde o chahe o career family emotionally practically meinu laike sbb krde oo te…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Tuc ghr di vaddi kudi oo te khud de emotions<br>hide krna tuhadi adat bann chuki hai. Tuc<br>overthinking krde o chahe o career family<br>emotionally practically meinu laike sbb krde<br>oo te khud te burden khud te heaviness bnaa<br>lene oo khud nuu heavy burden feel krane o.<br>Kyoo yr ehni life complicate kr rahe oo. Mein<br>thnu pta thnu 100% smjhdaa te kida smjhda i<br>dont know pr mein bhot kuch pehle hi smjh<br>jnaa. Tuhadi overthinking thnu hmesha<br>double minded krdi hai tuc eh gl jande oo.<br>Tuc positive negative sbb dekhde oo prr<br>hmesha negative nu laike drr jane oo. Kyoo<br>mishti?</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#096</span>
+    <span class="entry-date">16 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Life dii positives nu laike je khush ni hovage te negatives ignore yaa uss cheej nu overcome di koshish nai krage ta life rukk jayegi. Mein thnu eh sbb smjhana chahna pr thnu ik he…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Life dii positives nu laike je khush ni hovage<br>te negatives ignore yaa uss cheej nu<br>overcome di koshish nai krage ta life rukk<br>jayegi. Mein thnu eh sbb smjhana chahna pr<br>thnu ik heavy conversation cho nai kdhna<br>chahnda. Bhot sochda tuhade bare te shyd<br>soch soch ehna smjhgyaa ki understanding<br>te mera pyar iss mukaam te aa ki tere toh<br>ilava kuch chahida hini❤️.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#097</span>
+    <span class="entry-date">17 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Sorry yr aaj jhooth boleya, mera migraine horeha c prr mein gl krna chahnda c yr mein thnu dsya ni kyoki tuc vi thik ni sigge mein thnuu happy up krna chahnda c pr kr ni paya chaj…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Sorry yr aaj jhooth boleya, mera migraine horeha<br>c prr mein gl krna chahnda c yr mein thnu dsya ni<br>kyoki tuc vi thik ni sigge mein thnuu happy up<br>krna chahnda c pr kr ni paya chaj nal mein. Sorry<br>sorry yr mein ethe confession ta likh reha kii mein<br>koi lako ni rkhna chahndaa<br>Thnu pta mein roj raati 11:11 di wait krda<br>thnu mangan vste. Te jdd reh jnda hai 11:11<br>te mngna fir bhot regret hunda i know<br>childish aa prr ki kra thnu paan di ehni talap<br>aa kii mein ta ehna religious hogya ki koi<br>method work kr jaye jithe thnu mein apna bol<br>skda🥹❤️.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#098</span>
+    <span class="entry-date">18 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">11:45 hogee tuc halle tk online ni aye yr meinu tension hoi jari pr mein thnu show ni kr skda mein pta bajrang baan vi sunke hateya ki yr fir na koi overthinking yaa koi hor gl na…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>11:45 hogee tuc halle tk online ni aye yr<br>meinu tension hoi jari pr mein thnu show ni<br>kr skda mein pta bajrang baan vi sunke<br>hateya ki yr fir na koi overthinking yaa koi hor<br>gl na hoje yrr meinn bhot stressed hoya<br>betha prr thnu dsuga ni tuc iss nu as a<br>burden le lena apne te i want to be cool pr<br>andro mere jaan niklri. Plzz Aajo online mein<br>rabb toh vi mng rehaa ki online krvadoo yr<br>mein gl krni. Mein thnu eh ni pdhaugaa tuc<br>heavy feel kroge eh bs meri feelings hai</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#099</span>
+    <span class="entry-date">19 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Aaj tuc gusse oo ta sochyaa kyoo naa faida chkya javve. Thnu ptaa tuc bolde o na ki WE ARE DIFFLENTT. Mein aaj thnu dsda mein different kivve aa, different mein ik vste eve aa ki m…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Aaj tuc gusse oo ta sochyaa kyoo naa faida<br>chkya javve. Thnu ptaa tuc bolde o na ki WE<br>ARE DIFFLENTT. Mein aaj thnu dsda mein<br>different kivve aa, different mein ik vste eve<br>aa ki meinu hun chaska special feel hon<br>naloo kraan chh haii, te jinu special feel kran<br>ch hai oo tuc o❤️ and agar tuc gussa rahogee<br>taa oo burden tuhade te hi hai kyoki jnabb<br>mein thnuu russe rehnn dvaa edha hoo<br>skda??😂 hunn tuc manno chahe naa<br>mannoo, mein taa apna shonk pura krna aaj<br>thnu special feel krann daa bolo manjoorr<br>haii??😂❤️.</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#100</span>
+    <span class="entry-date">20 June</span>
+  </div>
+  <h2>A page from this day</h2>
+  <p class="preview">Nii tu parshawa bnaya apnii ghoor da, Dss kida ni meri jaan kambhegi? Gusse da chahh ch khda meinu, Dss kida nii tu mere khyala ch rahegi? Thnu manana farz toh vdh shonk a mera, Th…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>Nii tu parshawa bnaya apnii ghoor da, <br>Dss kida ni meri jaan kambhegi?<br>Gusse da chahh ch khda meinu,<br>Dss kida nii tu mere khyala ch rahegi?<br>Thnu manana farz toh vdh shonk a mera,<br>Thnu mnaan chh laadu pura jor mera<br>Tuc kehne o mein gl ni krni,<br>Thnu kalla chdn di ruhh meri ni jrni<br>Kyo na mnaava dss ki tu jroori ni,<br>Thnu gusse chdn di rahi esi koi meri majboori<br>ni,<br>Aaj toh thnu khush dekhna chahna,<br>Tuhade naaa dii khasiyatt thnu dsna chahna<br>Khasiyat eh a ki eh naam mere vste jroori ban<br>gya hai,<br>Jdd mein nii mnaugaa taa kaun kahega ki eh<br>mera baiya hai?😂<br>Jvak bneya fir tohh tuhade lai,<br>Jindagi jiuga bss tuhade lai</p></div>
+  </details>
+</article>
+
+
+<article class="journal-card">
+  <div class="card-top">
+    <span class="entry-number">#101</span>
+    <span class="entry-date">21 June</span>
+  </div>
+  <h2>A page from my heart</h2>
+  <p class="preview">y Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorry Sorr…</p>
+  <details>
+    <summary>Read entry <span>＋</span></summary>
+    <div class="full-entry"><p>y<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry <br>Sorry <br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry <br>Sorry <br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry <br>Sorry <br>Sorry <br>Sorry<br>Sorry <br>Sorry <br>Sorry <br>Sorry <br>Sorry <br>Sorry <br>Sorry <br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry sorry<br>Sorry<br>Sorry<br>Sorry <br>Sorry<br>Sorry <br>Sorry <br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry <br>Sorry <br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>Sorry<br>This page consists of sorry only</p></div>
+  </details>
+</article>
+
+</main>
+
+<section class="final">
+  <div class="script">The last page...</div>
+  <p>These 142 pages have more to go</p>
 </section>
-
-<div class="toast" id="toast"></div>
-<div class="confetti" id="confetti"></div>
-
 <script>
-  let current = 1;
-  function go(n){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    const next=document.getElementById('p'+n);
-    next.classList.add('active');
-    current=n;
-    window.scrollTo({top:0,behavior:'smooth'});
-    if(n===2){
-      setTimeout(()=>document.querySelectorAll('#p2 .fill').forEach(x=>x.style.width=x.dataset.w),250);
-    }
+const additionalEntries = [
+  {
+    n: 102,
+    date: "22 June",
+    text: `Tuc just hune bolke hate o ki pareshaan hojuge tuc ye vo sab. Mein na dilo bolna chahnda c ki Mein rabb toh mangdaa yr thnu, 1 vi din chde bina rojj thnu mangdaa roj.. edha mangke pareshaan ho jnaa possible hini ji. Ehh din vste mein kini mannataa kinii duaavaa kinee pooja path apna lee kdi gurudware kdi tuesday hanuman jii kdi shivji ki ni chdyaa mein ta masjid tk chla jnda😂😂. Kdi bajrang baan sun reha thnu mang rehaa kdi alakh niranjan thnu mang reha kdi chaupai sahib td vi thnu mang reha. Eh sb hune kyo ni boleya? Taaki tuc burden na feel krooo❤️. Let go everything smoothly❤️. I love you❤️🧿`
+  },
+  {
+    n: 103,
+    date: "23 June",
+    text: `Pyar de raah tureya rasta ni c dikh reha, Raah navva c ta anjaan bnn si tur reha, Manzil saaf c prr raah mere vste itt pathar toh pani le aya, Gilaa rabb toh aa kii insaan mange te oh meinu de na paya, Aaj dil te pathar rkh khud nu vichad reha, Tuhadi khushi vste apna sab toh keemti insaan vichad reha Ikk tarfa pyar aaj smjh chuka a, Thnu khud toh dur hunda dekh khud mukk chuka a Rabb toh thnu mang tuhadi khushi di jimmewari chuki c, Tuhanu khush rkhn di najaane kini mannata rkhiya c, Meinu ni pta aaj ki hau apne ch, Pr thnu ni bhula pau, Meri akhri yaad bann mere nal rahu Jimmewari toh duaa da safar meinu chahe kande dayi javve, Pr tuhade aanch vi na aave ehh dua meri puri ho javve Eh pyar hun mukk ni skda, Mera teri khushi mangna rukk ni skda Duniya kr chuki daga hau, Rabb toh dua kru ki aan vala kal tenu Ca de padhar te jaga dau Khwaab tere di dua hmesha kru, Mada ni c chaya eh gl da maan hmesha rahuu, Bahadur bann khud nu bda kuch smjhaleya, Aaj mein ehi smjhlu mein apna dilo kita pyar apne hatho gvaleya💔`
+  },
+  {
+    n: 104,
+    date: "24 June",
+    text: `Kal da din bhot bhot aukha c yrr khud nu bhot valueless bhot hi bekar insaan ptani ki ki smjhya yrr khud nu ehna koseya roya vi ptani ki ki yrr gurudware jake mang reha ptani ki ki yrr no words to explain bss decision aa naa haar manni naa eh pyaar toh move on hona thik hai demotivated aa bhot prr ki krr skde aa, i lovee youu`
+  },
+  {
+    n: 105,
+    date: "25 June",
+    text: `Meinu ptaa tuhade trust issues aa bhot kuch aa i don't think you love me or not but mein eh chahna ki thnu pta hove ki you have or you had someone who loved you sooo soo much without any intention but everything was just mishti❤️. I love you soo much yaar 🥹❤️. Meinn sabb varan da dum rkhuu meri life M toh shuru hoke I te khtm hoyegii ik navvi life shuru krna chahnaa hadd toh vdh pyar krna chahna thnuu ik edha di life dikhana chahnaa ki bss thnu edha lgee ki eh ik series chal rhi hai but o series never ending hove. I just love you soo deeply yr🥹 ❤️`
+  },
+  {
+    n: 106,
+    date: "26 June",
+    text: `Meinu hor roj kuch nvva view dikhda yrr jdd kdi koi chaj di gl ho javvee mere view point toh ta sbb vdia ho jnda vrna mein overthink krda. But ik gl tuc vi socho na ki if i overthink that means i love you? Obviously bnda kyoo kuch sochega je pyar hini hoyega yr dsoo?? Mein kdi kdi bhot ignored feel krdaa prr tuhade kehn te mann vi janaa annee vang bhrosa krda mere vstee kuch matter hini krda if i have you. I dont know ki future hoyega but yr mein ohna cho aa jehda tuhada mada ta bilkul ni chahnda tuhade up down ch nal khdna chahna tuhade vste hi sbb krna chahna. Thnuu ik vdia life dena chahna. Jine thnu chdya ki o nai jnda c tuc CA banna? Prr mein janda tuc ki krna mein tuhade toh better hi sochke betha yr sbb mere vste kuchni aa bss tuc hoo. Shyd kisi ne thnu glt paan vste koivi hadd chuni hovee pr mein tuhadi khushiya nu ehna mainee rkhdaa kii tuhade naam da tyohar bnaa dvaa tuhade birthday te thnu jroorat thnu smjha dvaa te tuhadi taraki tee pura asmaan chmkaa dva❤️`
+  },
+  {
+    n: 107,
+    date: "27 June",
+    text: `Yrr iss toh best scenario for a relationship ho hini skda yrr sade dona di vibe ehni mildi apa Ik dooje nu smjhde a Kathe hsde a Vdia bond Kathe dreams bna skde a Ik dooje de ghr ch vass skde aa Manglik tk aa yrr Hor ki chahida Viah de supne dekhda yr mein te tuhade nall Mein ta propose vi ehi kehke kru viahh krayegi mere nall?`
+  },
+  {
+    n: 108,
+    date: "28 June",
+    text: `Mein je chla gya meinu pta koi frk ni payega pr eh hai mein edha ni jauga apna pura zor lgake jauga pr je na meri kismat ch tuhada naam hoya ta mein thnu jaan dauga. Khud aage vdhn vste nii thnu aage vdhaan vste mein aage ni vdhna chahuga hor kisi nu eh pyar krr vini paugaa prr thnu jaan dauga. Khud pahada vang shant rahuga thnuu havava vang pura ambarr ghumn dauga thnu kdi tang ni krugaa. Bss yaad rkhlena ik c jehda pagala vang chahnda c meinu. Apne supne mere naam toh bunnda c te mere naam te khtm kr dinda c. apne aap nu bhul pehli vrr kisi nu pyar krda c. khud nu pura badalke mere vste khud nu kurbaan krda c. je ik var chla gya pukaaran te vi vapas ni aau. Prr apne vaade nibhan lai hmesha khdd jau`
+  },
+  {
+    n: 109,
+    date: "29 June",
+    text: `Aaj apni gl kaafi neutral rahi yrr but i love youu soo much yes you were suffering from periods i was making soo much efforts to make you laugh atleast but was unable to do it today fir mein end ch flirt hi krleya kyoki jithe jnaab gll tuhadii hovee othee meinn chup rehh laa edha ho skdaa laadlii dispossible. Yes i love you, i love each moment with you, your no to flirt is also the point where i fall for you again and again`
+  },
+  {
+    n: 110,
+    date: "30 June",
+    text: `Bhot cheeja cho nikl rehaa sb toh vadda mumma da operate prr thnu pta mera thnu mangna constant reha mein kdi vii thnu mngna ni chdya meri jroorat ch mumma di sehat de nal tuhadi mang vi c. bhot pyar krda yr hun mein izhaar krna bnd krta hai kyoki tuc burden lende si uss nu but seriously mera pyar ni ght skda. Jina shyd mein krdaa koi kr ni pauu thnu ha mein ik vdia propose krke tuhade toh haa yaa naa laina chahna prr uss toh vi jroori mein pehle thnu apna bnana chahna. Mera pyar shyd kdi tuc pehchaan na paoo prr ik gl aa yr mein ni chahnda kdi tuc mere toh dur hovo. Pr mein thnu as life partner dekhna chahnda kyoki iss toh best scenario and pyar meinu life ch kdi ni mil skda`
+  },
+  {
+    n: 111,
+    date: "01 July",
+    text: `Pta mein aaj roya c kyokii apa mil ni paye mein milke ik gl krna chahnda si te oo gl krn piche mein khud nal ptani kinni galla maariya c te jd mil ni paye bhot dukh hoyaa yrr. Mein gl ki krna chahnda c`
+  },
+  {
+    n: 112,
+    date: "02 July",
+    text: `Thank you so much for everything 🥹❤️. Mein bhot stressed si swer da and i was just waiting a good conversation with you, idk why! I dont know how to thank you but one promise i can make is your presence will always be this much worthy like today. Thank you❤️🧿🥹`
+  },
+  {
+    n: 113,
+    date: "03 July",
+    text: `Kdi thnu eve ni feel hon dauga ki mil jaye toh mitti kho jaye toh sona. Tuc mera sona ni mera sb toh precious oo jidi na ta koi money value hai bsss mere emotional value jidi shyd koi keemat ni`
+  },
+  {
+    n: 114,
+    date: "04 July",
+    text: `Kal te aaj mein chahe bye bye krti tuhade nal hi Pr sauga taa 10 min baad hi😂❤️ Haar tabh hi hoti hai jab maan liya jaata hai, Jeet tabh hoti hai jab thaan liya jaata hai`
+  },
+  {
+    n: 115,
+    date: "05 July",
+    text: `Haar tabh hi hoti hai jab maan liya jaata hai, Jeet tabh hoti hai jab thaan liya jaata hai`
+  },
+  {
+    n: 116,
+    date: "06 July",
+    text: `Tuc sochde hoo naa kii meinn ehni cheti kida bhrosa krn lagg gyaa tuc ta krr ni paye c ehni jldii ehda jvab dva. Je bina gl kite kdi mein pyar kr paya ta oo meri fitrat c oo tere kol rehke tenu smjhn di khoobsoorti c. je gl krke bhrosa krn lgda ta shyd koi reason bann chuka hunda thnu pyar krn da tuhade nal sare khwaab bunan da tuhade te bhrosa krn da. Aaj merekol koi reason ni sirf tuc ho tuc hi chahide o te tuc tuc hoo bssss.`
+  },
+  {
+    n: 117,
+    date: "07 July",
+    text: `Je socha vicho thu kdhh skda hunda ta shyd aaj pyar hi na hunda. Tuhada late replies no calls and many more meinu ehna hamper krde hini.. haa frk ta penda hai prr thnu khon toh jehda frkk payega oh iss toh ptani kinna vdhh hoyega. Ha mein pyar krda meinu ni pta kyo ni accepted thnu mein, relation vagera jdd ki sabb all good hai yaar. Mere vste sb tuhade ch vsda mein kida chd dauga mera hai kaunn.. mishti je apne intension dii gll kra ta shyd raat vi ghat pejee. Duniya shyd tenu jism lai chayegi tere sohne mukhde lai chahehgi te o chahat edha hi hoyegi jehda sabb tera chinn layegi, i said sabb kuchh.. prr je mein apni gll kra mein ta chahat hi teri muskaan di rkhda yrr roj koshish krda thnu hske svava iss toh vdh kida kra yrr.. thnu aage vdhana chahna ik vdia life manifest krna chahna tuhade nal behkee.. sabb compromise krn nu ready aa mein`
+  },
+  {
+    n: 118,
+    date: "08 July",
+    text: `Apna hun sabb vdia chlreya regular calls sb kuchh vdia haii bss nazr na laggee prr yrr shikayat ehmiyat toh hai. Mein thnu sbb tohh vdh rkhna chahna pr tuc rehna nahi chahndee. Mein thnuu rabb de aage kiti guzarisha ch rkhna chahnaa te tuc ptani kehde khyala ch rehna chahne o. Jaan nu aaj chla jvaa yrr mein mera ki hai mann dukhega halle vi dukh reha regret hoyega aaj vi hundaa jdd thnu dur hunda dekhda let it be. But thnu kise hor de hatha ch dekh tuhadi khushi ch khush jroor hauga prr tuhade hanjua nu ni dekh pauga o ni seh paugaa tuhade takiyee ansuaa nal bhijdee ni dekh pauga tuhadi jehdi hrr raat mein hsss hss ke kdha dinda c oo shyd dubara ni kdh pauoga vini haugaa`
+  },
+  {
+    n: 119,
+    date: "09 July",
+    text: `Aaj saadi bhot der gll hoi ehna jyada vdia lag reha na yrr ki bss edha hi chlda ravvee, aaj apa decide kita c raati pdhke sovage tuuc 11 vaje online aage c te apa 11 toh 12:30 pdhna c tuhada 12:10 te hi msg agya ki bss hor nii pdhna cho gll krde aa mein smjhgyaa ki malkin ji ko yaad aarii hai yeeeeeeee, ab toh pyaar hoo rha hai malkinn ji kooo`
+  },
+  {
+    n: 120,
+    date: "10 July",
+    text: `Lagg gaii nazar aaj fir gl ni hoi waao, raati vi tuc 1 vaje call krke uthaya hai meinu ehna bekar feel ho reha na yrr ehna mood khrab aa but thnu firvi hsake hi svaya aa yr chlo koini yrr tuc jida theek lgda kro mein pyar krdaa mein sabb sahi krda rahuga tuc bss naal khde raho, keha c na meinu chahe apna na bnana bss kol reh meri zindagi swaar dena, tuhada ptani mein tuhadi zindagi pakka swaar duu yrr`
+  },
+  {
+    n: 121,
+    date: "11 July",
+    text: `I loveee youu soo muuch cutieee, jd tuc meinu flirt krn nu mnah krde ho oye hoyee kyaa baat disappointment hundi but thnu kaun smjhavee sohneyooo kii mein taa sach boldaaa jaaan meriii`
+  },
+  {
+    n: 122,
+    date: "12 July",
+    text: `Mein ni kuch likhna aaj nazar laggi jandi hai ik din chaj nal gl hundi dooje din hundi ni chdoo likhnaa hini`
+  },
+  {
+    n: 123,
+    date: "13 July",
+    text: `Yrr meinu pta you are broken mein ta eh kehna yr khud nu aage vdhaoo mere nal ni ta kisi hor nal atleast relation ch aao apni khushiya ohde ch lbhni shuru kro apne goals set kro apni life bnaan te dhyan dvoo ik o person de naal milke. Dekho mein ta temporary hi aa na yr bss ik vaadey de sirr te tuhade nal rehna chahna ki kash jdd maut aave te tuc naal hovo. Sabb hasil krlaga prr je eh rehgya ta thnu paana rehgya ta shyd bhot pachtauga. Chlo koinii mahadev ji sabb vdia hi krnge mere lai nai ta tuhade lai. Shyd je apni na bni taa ohde chh tuhada bhala hove. Khud nu aage vdhao yrr edha ni kr hona kida smjhava smjh ni anda . Kdi sochda harman di madad lva pr bhrosa ni hunda kdi sochda kirpa nal gl kra prr krr ni pandaa.`
+  },
+  {
+    n: 124,
+    date: "14 July",
+    text: `Ptaa thnu eh jindagi kisi vstee ni rukdii, te ehi ehdi khaas hai gl prr jdd mein khud nu puchya naa ki eh khaas gl hai taa mein aaj de apne aap nu puchya te jvab mileya ki yr mein chahnda jindagi je rukee ta uss time tuc mere nal hovo, jee chalpave ta mere hath ch tuhada hath hovve. Edha meaning eh c yr ki mein jindagi rokan nu tyar aa time rokan di manjoori aa ki je tuc naal o prr aage meinn kalla ni vdhna chahnda thnu naal vdhana chahnda🥹❤️`
+  },
+  {
+    n: 125,
+    date: "15 July",
+    text: `Tuc meinu aaj keha mein MEIN EHNI JROORI AA JI?? Eh hun mein kida smjhava? Chlo kuch likhke dekhde aa Jroorat kisnu nai, Kisee nu rooh dii kisi nu jism di, Je rkhi mein jroorat jism dii taa pyar di ehmiyat kis kissmm di Meri te rooh mangdi pyar tera, Dil ne hrr vaar poojeya naam tera Hrr rabb aage pa chuka arji aa, Mere pyar nu amar krna hun teri mrji a Tere khwaba da rkh mein chithaa chuka Ohnu pura krn vste puri nishtha rkhaa, Tu khud nu kdi ghat ch na vasai Nakhre meinu de khud na apne aap nu rusai Mein dum sari duniya jittan da rkhu Nal khdeya je meinu mera eh pyar vikhu Sare khwaab dekha mein naal tere Tere har khwaab pure krn de mein rkha lako dil ch mere Firvi akhdi hai ki mein schi jroori a Tenu kol rkhna majboori a Majboori kahdi eh puchh mere dil nu Dil jdd dhadku tere naam tee Tdd jvab milu tenu Bss hun chahidi rabb di manjoori aa Miln de intezaar ch aa, Fir tu khud nu kahegi ki haa mein schi jroori a❤️`
+  },
+  {
+    n: 126,
+    date: "16 July",
+    text: `Meinu nai pta yrr apne dona da ki future aa kal nu gll bnd hojayegi nahi hoyegi ptani yrrr prr mein at least ik vrr chahna ki mere nal mere smnee betho te ik vaar mera meinu dil khalii kr lain doo. Mein koi glt chaap chdke ni jana chahnda and yes i really want to make you permanent or to Let you go. Bhot lamba reason hai let you go da but one thing is the ability to let you go will destroy me but still i will let you go because that is my sense of love i dont want to make you in boundaries but want a big life with you and more than that i manifest a life of you which is way too beyond of your dreams Mann bhreya peya hai iss time muh ch lafaz hi lafaz hai prr darshava kide aage yrr`
+  },
+  {
+    n: 127,
+    date: "17 July",
+    text: `Mein na bhot time pehle ik gl likhi c jehdi aaj sach hundi najar aarhi Ki jee gll jroori hove ta insaan bhuljai, Jee insaan jroori hoya ta gll bhuljai Tuc meinu ignore kita te aage vi krde o and meinu jdd bekadri jithe jithe vi feel hoi mein chla gya pr iss vaar naa meri ijjat naa meri ego naa koi self respect da angle kuch nai jitt paa reha kyoki mein thnu pyaar krda mein thnu pyaar krda. Mere vste mein ni hun tuc matter krde o mein tuhade hrr mod te tuhade nal khdna chahnaa kisi gl toh lako rkh thnu gvana ni chahnda meri life ch o value rkhde o jehdi kise ne ni rkhi. Jo mein aaj krda je eh pyar hai ta kehlo pehla pyar a mera te oo tuc o❤️`
+  },
+  {
+    n: 128,
+    date: "18 July",
+    text: `When a man is in love he dont want lust but want reassurance of love at every moment`
+  },
+  {
+    n: 129,
+    date: "19 July",
+    text: `puraa enjoy krnaa photos khichna bhejnaa koi tension ni lainii apni life enjoy krooo ik vdiaa break lvoo life tohh tee vdia mindset nal vapas aao happy happy hoke❤️🧿✨ Dhyan rkhna apna puraa, time sair khana khalenaa. Koivi lod hoyegi meinu call krlenaa, dhyan nal turna sareya de naal rehna kalle na jnaa kithe vi. Will miss you but will be more than happy to see you happy and enjoying. Take care❤️💕🧿✨`
+  },
+  {
+    n: 130,
+    date: "20 July",
+    text: `Haa yrr meinu bhot yaad aarhii you are always in my brain and because I love you. Yr meinu tuc chahide o in every moment of my life either it is a happy moment sad moment or a neutral one but you are always be my need. I want to express you again each and everything. Hune vi tuc message seen te chdta c my ego said she will text now but my heart which loves you said what if she doesn't text? I will wait the whole night! I love you🥹❤️✨`
+  },
+  {
+    n: 131,
+    date: "21 July",
+    text: `Mera obsession sbb kill krr dinda hai meri phone calls thnuu messages harman nu ptani ki ki yrr pr sb tuhade vste si yr thnu pyar krda iss vste c yrr. Mein kida smjhava kida likhava kuch ni smjh areha thnu ni khona chahnda bss yrr`
+  },
+  {
+    n: 132,
+    date: "22 July",
+    text: `Mein hunii movie dekhke aya just and tuc offline hoo te mein iss time schi gl krna chahnaa.. i know tuc sogye o but ki kra yrr mann bechain hunda. Mein ehna impatient harman nuvi krta message😂. Yr ki kra yrr kdi kisi vste kdi edha feel hini kita je ehnu pyar kehnde te yr mera pehla pyar aa ehh. Te mein chahna akhri hove`
+  },
+  {
+    n: 133,
+    date: "23 July",
+    text: `Meinu nai idea mishti ki ho reha ki nai mere mann ch ki chal reha ki nai prr kdi tuc meinu mere kol hunde najar ande oo kadii dur. Jdd kdi dur hunde najar aane oo khud nu koss da kdi tuhade te ik ilzaam laan dii himmat ni krr paya. Piche je sab bhot vdia hogya c we were so so so good and happy. But jdd mein uss din movie toh baad vapas aya my obsession for you peaked again and everything seems to be getting destroyed. Meinu nai pta ehda ki hauga mein ik vaar tuhade kol behke thnu sab confess krna chahna prr naal behke mein gl krna chahnaa hrr time bss ehi sochda ki bola kida bola kida treat kra kida bolde hoye thnu treat kraa kinu kvaa gl kran lii kirpa harman and soo on. Yaar ehna sochda ki mera pyaar sacha nii hau?? Thnu kdi realisation ni hoya!`
+  },
+  {
+    n: 134,
+    date: "24 July",
+    text: `Mera obsession hrr vaar sbb maar dinda hai ki kra yr mein pyaar krdaa je tuhade nal obsess ni hau ta kide nal hauga yrr sbb accept krn nu tyar aa pr tuhada dur jna nii.. kdi ehna dharmikk nahi c jina hunn hogyaa yrr koi esi bhagwan ji di murti nai koi aisaa rabb da sathaan ni jithe mein tuhade naam nu sthaan na diti hovvee. Mein hrr jgah mangeya thnuu te pta kai vaar hurt hoke sochyaa ki hun nai mangna thnu prr pura ni krr paya hrr jgah te thnu mngn di esi adat lgi ki kdi hun chdna hini chahndaa..`
+  },
+  {
+    n: 135,
+    date: "25 July",
+    text: `Aaj jdd tuhada call aayaa mein saloon te c and my smile was this much big ki meinu barber tk ne kehta ki pajiiiii ki gl hogii bdeee khush hoge o😂.. mein khush c bhot te thnu pta mein apne ch realise kita mtlb apne aap ch ki yr mein bhot hi overthink krda but end ch sb ulta hunda jo vi mein sochda. Hunn mein bathera kuch sochyaa hoya sochnoo te hatda hini meinn tee meinu ptaa hona sabb meri soch toh parey hi hai`
+  },
+  {
+    n: 136,
+    date: "26 July",
+    text: `Ptaa mein ki sochda kirpa nuu hunn mein sab dsugaa ki mere intension ki meri feelings hai kyokii mein hun ehi sochya i will propose you in such a way where no one can reach most unique way because you deserve that. Mein kirpa nu dsna chahnaa sabb kuch confess krna chahna ki mein ohdi bhen mishti nu kina pyar krdaa, kida mera rabb ohde chh vsdaa kida mera kalla kalla khwaab ch ohda naam aa mere kalle kallee guzarish sirf ohda naam aa. Pehli vrr jindagi ch insaan mngeya te o tuc o yrr. Sb tyaag taa bss thnu ni let go krn dena chahnda, jina mrji chah lva mera chahan toh mann ni bhrr reha`
+  },
+  {
+    n: 137,
+    date: "27 July",
+    text: `Mein ansh manocha ik vaada krdaa kii mein tuhadi jindagi oo shakss bnke aauga. Tuc khwaab dekhoge mein pura krn ch jaan lauga, tuc khush hauge tuhadi khushi chh shaan laugaa. Tuc kismat nu parkhogee mein kismat badlan da dum rkhuga, hrr modd nu tuhade hisab nal bunn duga i swear. This is my love!. Koi kismat nu nai hraa ska mein tuhade vste tuhadi khushii vste likhi kismat paltann ch jaan laugaa. God will be with me because they know how pure i am for you`
+  },
+  {
+    n: 138,
+    date: "28 July",
+    text: `Mein kina pyaar krda yrr thnu kida dsa halle vi sirf tuhade bare hi soch reha tuc bye bolti aa neend nai aarhi aaj tuc late aye c bhit pyaar krda yrr mera brain rest ni krda sirf misthi bare sochda te mishti nu mera dil dimag ehna pyar krde ki eh apas ch hi ldhde rehnde aa kii mein pyaar krda mein pyaar krda. Bhot pyaar krdaa yrr bhot khush rkhuga ik vaar apni life apna eh pyaar parakh ke taa dekhoo yrr jaan varduga yrr sohniye`
+  },
+  {
+    n: 139,
+    date: "29 July",
+    text: `Aajj apa ehni glla mariya call te vi chat tee vii oye hoye best day ever yrr ehni glla yrr sadi vibe ehni match hoi aaj tuc o vishal randhawa and all bare dsya haa bhot insecure hoya but theek hai yr i love you i am inecure because i love you, jehda mrji magar aave mein tuhade toh piche ni hatan valaa huhh. Naa mein kise vaal jauga kyoki kudiya bhot ne prr meri mishti vrgii koi nai, yes merii mishtiii`
+  },
+  {
+    n: 140,
+    date: "30 July",
+    text: `Yr thnu apna pyar kida darshava yrr mere vste kii o tuc kida smjhava yr. bhot pyar krda yr apna bnana chahna hun ni reha janda yrr. Apna bnan vste taras da thnu chd kida jauga. Ways lbhda thnu khush krn de, sara time sochda ki kida gl kraa kida kra kirpa nal gl krda shydd kdi chance mile ta ye vo ptani ki ki yr. just because i love you🥹❤️`
+  },
+  {
+    n: 141,
+    date: "31 July",
+    text: `Mein jina pyar krda shyd kdi darshaya hini jaa skda meri hrr khwaish ch tera naam aa, khwaish hi tera naam aa. Mera pyar ehna upr aa ki yrr kdii tenu ronda ni dekhna chahnda yrr bhot pyar krna chahna thnu jamane di sari khushiyaa dena chahnaa tuhadi family nu apnaa kee sabb ohna ch smjhna chahnaa ik parivar bnake rkhna chahna i know bhot jldi aa apne ch halle kuchni aa prr mein ik gl kahi c yr ki meri sari duniyaaa 2 hisseya ch vandi ja chuki hai, ik duniya te ik pyar jide ch meri duniya vsdi hai. Te jehde pyar ch duniya vsdi aa naa oh sbb toh vdi duniya hai chahe ohde ch sirf 1 person mishti hai, dooji duniya ch sare hai prr oh sare vi o jgah ni le skde o vddi duniya ni bna skde jo mishti ne mere dil ch bnai hai jo mere dil ch ohde lai pyar hai, i love you❤️🧿`
+  },
+  {
+    n: 142,
+    date: "01 August",
+    text: `Thnu ptaa mein mtlb jaataa ni rehaa dss reha obviously you know me. Mein pta roj 11:11 hundee hi chahe dine raati akha bndd krke shuru ho jnaa ki bss misht baksh doo mishti baksh do😂😂`
   }
-  function openCard(card){
-    const was=card.classList.contains('open');
-    document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
-    if(!was) card.classList.add('open');
-    const title=card.querySelector('h3')?.textContent;
-    if(title==='Us ❤️'){
-      document.getElementById('usMessage').classList.add('show');
-    }
-  }
-  function nope(){
-    document.getElementById('noReply').style.display='block';
-    document.getElementById('noReveal').style.display='none';
-    document.getElementById('noReply').scrollIntoView({behavior:'smooth',block:'center'});
-  }
-  function revealNo(){
-    document.getElementById('noReveal').style.display='block';
-    document.getElementById('noReveal').scrollIntoView({behavior:'smooth',block:'center'});
-  }
-  function yesDone(){
-    burst();
-    setTimeout(()=>go(7),900);
-  }
-  function burst(){
-    const box=document.getElementById('confetti');
-    box.innerHTML='';
-    const chars=['♥','✦','✧','•'];
-    for(let i=0;i<55;i++){
-      const el=document.createElement('i');
-      el.textContent=chars[Math.floor(Math.random()*chars.length)];
-      el.style.left=(Math.random()*100)+'%';
-      el.style.setProperty('--x',((Math.random()-.5)*180)+'px');
-      el.style.animationDelay=(Math.random()*.5)+'s';
-      el.style.color=['#ff8fb3','#ffd0df','#ffffff','#f6c8a8'][Math.floor(Math.random()*4)];
-      el.style.fontSize=(10+Math.random()*16)+'px';
-      el.style.width='auto'; el.style.height='auto'; el.style.background='none';
-      box.appendChild(el);
-    }
-    setTimeout(()=>box.innerHTML='',3200);
-  }
+];
+
+const journalGrid = document.querySelector(".journal-grid");
+
+additionalEntries.forEach(entry => {
+  const plainText = entry.text.replace(/\s+/g, " ").trim();
+  const preview = plainText.length > 180
+    ? plainText.substring(0, 180).trim() + "…"
+    : plainText;
+
+  const card = document.createElement("article");
+  card.className = "journal-card";
+
+  card.innerHTML = `
+    <div class="card-top">
+      <span class="entry-number">#${String(entry.n).padStart(3, "0")}</span>
+      <span class="entry-date">${entry.date}</span>
+    </div>
+
+    <h2>A page from this day</h2>
+
+    <p class="preview">${preview}</p>
+
+    <details>
+      <summary>Read entry <span>＋</span></summary>
+      <div class="full-entry"></div>
+    </details>
+  `;
+
+  const fullEntry = card.querySelector(".full-entry");
+  fullEntry.textContent = entry.text;
+
+  // Preserve the journal's original line breaks
+  fullEntry.style.whiteSpace = "pre-line";
+
+  journalGrid.appendChild(card);
+});
 </script>
 </body>
 </html>
