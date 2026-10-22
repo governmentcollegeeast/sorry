@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Mishti — One Tiny Thing</title>
+<style>
+  :root{
+    --bg:#090a12;
+    --bg2:#111321;
+    --text:#f8f5f2;
+    --muted:#b9b5c4;
+    --pink:#ff8fb3;
+    --pink2:#ffbfd3;
+    --card:rgba(255,255,255,.075);
+    --border:rgba(255,255,255,.13);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+  body{overflow-x:hidden}
+  button{font:inherit}
+  .screen{min-height:100vh;display:none;position:relative;overflow:hidden;padding:28px 20px 42px}
+  .screen.active{display:flex;animation:fade .8s ease both}
+  .center{width:min(760px,100%);margin:auto;text-align:center;position:relative;z-index:2}
+  .eyebrow{letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;color:var(--pink2);margin-bottom:20px}
+  h1,h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;line-height:1.05;margin:0}
+  h1{font-size:clamp(3.2rem,13vw,7.2rem);letter-spacing:-.04em}
+  h2{font-size:clamp(2.4rem,9vw,5rem)}
+  p{line-height:1.8;color:var(--muted);font-size:clamp(1rem,2.5vw,1.16rem)}
+  .lead{font-size:clamp(1.15rem,3vw,1.45rem);color:#e9e5ec}
+  .tiny{font-size:.82rem;color:#8f8a99}
+  .spacer{height:24px}
+  .btn{
+    border:1px solid rgba(255,255,255,.18);
+    color:#fff;background:rgba(255,255,255,.08);
+    padding:15px 22px;border-radius:999px;cursor:pointer;
+    transition:.25s ease;backdrop-filter:blur(10px);
+    margin:8px;
+    min-height:52px;
+  }
+  .btn:hover,.btn:active{transform:translateY(-2px);background:rgba(255,143,179,.18);border-color:rgba(255,143,179,.5)}
+  .btn.primary{background:linear-gradient(135deg,#ff8fb3,#d96e9a);border:0;box-shadow:0 12px 40px rgba(255,100,150,.22)}
+  .btn.danger{background:rgba(255,255,255,.06)}
+  .ambient,.ambient span{position:absolute;inset:0;pointer-events:none}
+  .ambient span{width:3px;height:3px;background:#fff;border-radius:50%;opacity:.35;animation:float 7s infinite ease-in-out}
+  .ambient span:nth-child(1){left:12%;top:18%;animation-delay:-1s}
+  .ambient span:nth-child(2){left:77%;top:12%;animation-delay:-3s}
+  .ambient span:nth-child(3){left:65%;top:72%;animation-delay:-2s}
+  .ambient span:nth-child(4){left:25%;top:82%;animation-delay:-4s}
+  .ambient span:nth-child(5){left:88%;top:48%;animation-delay:-5s}
+  .glow{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(255,143,179,.12),transparent 68%);filter:blur(8px);pointer-events:none}
+  .g1{left:-180px;top:-150px}.g2{right:-180px;bottom:-160px}
+  .line{height:1px;background:linear-gradient(90deg,transparent,rgba(255,143,179,.45),transparent);margin:26px auto;width:min(430px,80%)}
+  .stats{display:grid;gap:18px;margin:30px auto;max-width:650px;text-align:left}
+  .stat{padding:18px;border:1px solid var(--border);background:var(--card);border-radius:18px;backdrop-filter:blur(10px)}
+  .stat-title{display:flex;justify-content:space-between;gap:15px;font-weight:650}
+  .bar{height:9px;background:rgba(255,255,255,.08);border-radius:99px;overflow:hidden;margin:10px 0 7px}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,#ff8fb3,#ffd0df);border-radius:99px;transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+  .stat small{color:#918c99}
+  .zero{font-family:Georgia,serif;font-size:2.2rem;color:var(--pink2)}
+  .letter{max-width:720px;margin:28px auto;text-align:left}
+  .letter p{margin:15px 0}
+  .reveal{opacity:0;transform:translateY(18px);animation:reveal .7s ease forwards}
+  .delay1{animation-delay:.2s}.delay2{animation-delay:.5s}.delay3{animation-delay:.8s}
+  .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:30px auto;max-width:780px}
+  .card{border:1px solid var(--border);background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.045));border-radius:22px;padding:22px;text-align:left;min-height:150px;cursor:pointer;transition:.3s ease;position:relative;overflow:hidden}
+  .card:hover,.card:active{transform:translateY(-3px);border-color:rgba(255,143,179,.45)}
+  .num{font-size:.72rem;color:var(--pink2);letter-spacing:.16em}
+  .card h3{margin:9px 0;font-family:Georgia,serif;font-size:1.45rem;font-weight:500}
+  .card .inside{display:none;color:var(--muted);line-height:1.65}
+  .card.open .inside{display:block;animation:reveal .45s ease}
+  .card.open{grid-column:span 2}
+  .us-message{display:none;max-width:650px;margin:20px auto}
+  .us-message.show{display:block;animation:fade .8s ease}
+  .bigline{font-family:Georgia,serif;font-size:clamp(2rem,7vw,4.5rem);line-height:1.12;color:#fff;margin:24px 0}
+  .choice{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px auto}
+  .heart{font-size:2rem;animation:heartbeat 1.3s infinite}
+  .final{max-width:730px;margin:auto}
+  .final .message{text-align:left}
+  .signature{font-family:Georgia,serif;font-size:1.35rem;color:var(--pink2);margin-top:28px}
+  .smile{font-family:Georgia,serif;font-size:clamp(3rem,10vw,6rem);margin-top:20px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;background:rgba(20,20,30,.9);border:1px solid var(--border);padding:12px 18px;border-radius:999px;z-index:50;transition:.3s}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  .confetti{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
+  .confetti i{position:absolute;width:7px;height:14px;top:-20px;border-radius:3px;animation:fall 2.4s linear forwards}
+  @media(max-width:600px){
+    .screen{padding:24px 16px 34px}
+    .cards{grid-template-columns:1fr}
+    .card.open{grid-column:span 1}
+    .btn{width:min(330px,100%);margin:6px auto;display:block}
+    .stats{text-align:left}
+  }
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  @keyframes reveal{to{opacity:1;transform:translateY(0)}}
+  @keyframes float{0%,100%{transform:translateY(0);opacity:.2}50%{transform:translateY(-20px);opacity:.65}}
+  @keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  @keyframes fall{to{transform:translate3d(var(--x),110vh,0) rotate(520deg);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="ambient"><span></span><span></span><span></span><span></span><span></span></div>
+<div class="glow g1"></div><div class="glow g2"></div>
+
+<section class="screen active" id="p1">
+  <div class="center">
+    <div class="eyebrow reveal">A tiny thing from me</div>
+    <h1 class="reveal delay1">MISHTI.</h1>
+    <div class="spacer"></div>
+    <p class="lead reveal delay2">I need you to do something for me.</p>
+    <h2 class="reveal delay3">Give me 60 seconds.</h2>
+    <p class="tiny reveal delay3">No arguing.<br>No judging.<br>Just 60 seconds. 🥺</p>
+    <div class="spacer"></div>
+    <button class="btn primary reveal delay3" onclick="go(2)">Okay, I'm listening →</button>
+  </div>
+</section>
+
+<section class="screen" id="p2">
+  <div class="center">
+    <div class="eyebrow">Friendship investigation</div>
+    <h2>We have a problem.</h2>
+    <p class="lead">After extensive investigation...</p>
+    <h2 style="font-size:clamp(2.6rem,9vw,5rem)">WE ARE BOTH IDIOTS. 😭</h2>
+    <p>Especially after fighting for <b>HOURS.</b></p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-title"><span>⏱️ Hours spent fighting</span><span>100%</span></div>
+        <div class="bar"><div class="fill" data-w="100%"></div></div><small>Completely unnecessary.</small>
+      </div>
+      <div class="stat">
+        <div class="stat-title"><span>🧠 Common sense during the fight</span><span>4%</span></div>
+        <div class="bar"><div class="fill" data-w="4%"></div></div><small>We seem to have misplaced it.</small>
+      </div>
+      <div class="stat">
+        <div class="stat-title"><span>❤️ Amount I wanted things to be okay</span><span>100%</span></div>
+        <div class="bar"><div class="fill" data-w="100%"></div></div>
+      </div>
+      <div class="stat">
+        <div class="stat-title"><span>🫶 Amount I wanted this friendship to disappear</span></div>
+        <div class="zero">0%</div>
+      </div>
+    </div>
+    <div class="line"></div>
+    <p class="lead">And that's when I realized something...</p>
+    <button class="btn primary" onclick="go(3)">Continue →</button>
+  </div>
+</section>
+
+<section class="screen" id="p3">
+  <div class="center">
+    <div class="eyebrow">Why I made this</div>
+    <div class="letter">
+      <p class="lead">Mishti,</p>
+      <p>I know saying sorry doesn't magically erase everything that happened.</p>
+      <p>But I'm not making this to explain myself.</p>
+      <p>I'm not making this to make you choose a side.</p>
+      <p class="bigline">I'm making this just to see you smile.</p>
+      <p>Because after all that arguing...</p>
+      <p>I'd much rather be the reason you smile than the reason you're upset.</p>
+      <p>And maybe that's all I wanted to say.</p>
+      <p class="lead">I really, really care about you, Sohniyee. ❤️</p>
+    </div>
+    <button class="btn primary" onclick="go(4)">There's more... →</button>
+  </div>
+</section>
+
+<section class="screen" id="p4">
+  <div class="center">
+    <div class="eyebrow">A little collection</div>
+    <h2>Things I don't want to lose.</h2>
+    <p>Tap each one, Sohniyee. No rush.</p>
+    <div class="cards">
+      <div class="card" onclick="openCard(this)">
+        <div class="num">01</div><h3>Your voice</h3>
+        <div class="inside">Those random conversations that somehow become hours. The kind where neither of us knows how we got there... but somehow neither wants to leave.</div>
+      </div>
+      <div class="card" onclick="openCard(this)">
+        <div class="num">02</div><h3>Our stupidity</h3>
+        <div class="inside">The nonsense. The teasing. The completely unnecessary conversations. The things that make absolutely no sense to anyone except us. <b>I wouldn't trade those for anything.</b></div>
+      </div>
+      <div class="card" onclick="openCard(this)">
+        <div class="num">03</div><h3>The little things</h3>
+        <div class="inside">The random “hey.” The unexpected messages. The tiny things you probably don't even realize I notice. Somehow, those are the things that stay with me.</div>
+      </div>
+      <div class="card" onclick="openCard(this)">
+        <div class="num">04</div><h3>Annoying you</h3>
+        <div class="inside">Unfortunately, Sohniyee... this is a lifelong commitment. 😭<br><br>You're not getting rid of me that easily.</div>
+      </div>
+      <div class="card" onclick="openCard(this)">
+        <div class="num">05</div><h3>Being there</h3>
+        <div class="inside">Being someone you can talk to. Someone you can laugh with. Someone you can be completely yourself around. <b>That means more to me than I say.</b></div>
+      </div>
+      <div class="card" onclick="openCard(this)">
+        <div class="num">06</div><h3>Us ❤️</h3>
+        <div class="inside">Some friendships are easy to explain. Ours isn't. It's laughter. It's arguments. It's annoying each other. It's understanding each other without saying much. It's somehow becoming a part of each other's everyday life.</div>
+      </div>
+    </div>
+    <div class="us-message" id="usMessage">
+      <div class="line"></div>
+      <p>And somewhere along the way...</p>
+      <div class="bigline">you became really, really special to me.</div>
+      <button class="btn primary" onclick="go(5)">Continue →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="p5">
+  <div class="center">
+    <div class="eyebrow">The part I don't say enough</div>
+    <div class="letter">
+      <p class="lead">Mishti,</p>
+      <p>Sometimes I think I don't realize how much you mean to me until something like this happens.</p>
+      <p>Until we're angry. Until we're not talking properly. Until I suddenly realize how much I miss the normal version of us.</p>
+      <p>The stupid conversations. The random messages. The teasing. The laughing. The little moments that seem ordinary while they're happening... but somehow become the things I remember.</p>
+      <p>And that's when I realize...</p>
+      <div class="bigline">you're not ordinary to me.</div>
+      <p>You're someone I genuinely want in my life.</p>
+      <p>Someone whose happiness matters to me.</p>
+      <p>Someone whose smile can change my entire mood.</p>
+      <p>Someone I don't want to lose over something that lasted a few angry hours.</p>
+      <div class="line"></div>
+      <div class="bigline">You are worth more to me than being right.</div>
+      <p class="lead">Always.</p>
+    </div>
+    <button class="btn primary" onclick="go(6)">One last thing, Cutieeee... →</button>
+  </div>
+</section>
+
+<section class="screen" id="p6">
+  <div class="center">
+    <div class="eyebrow">Important question</div>
+    <p class="lead">Okayyy... enough emotional damage. 😭</p>
+    <h2>I have one very important question for you, Cutieeee.</h2>
+    <div class="spacer"></div>
+    <div class="bigline">ARE WE DONE FIGHTING?</div>
+    <div class="choice">
+      <button class="btn primary" onclick="yesDone()">❤️ YES</button>
+      <button class="btn danger" onclick="nope()">😤 NO</button>
+    </div>
+    <div id="noReply" style="display:none;max-width:600px;margin:20px auto">
+      <div class="line"></div>
+      <p class="lead">Oh. 😐</p>
+      <p>Okay... I'll respect that.</p>
+      <p>But I'm still going to say one thing.</p>
+      <button class="btn" onclick="revealNo()">What? 👀</button>
+    </div>
+    <div id="noReveal" style="display:none;max-width:600px;margin:20px auto">
+      <p class="bigline" style="font-size:clamp(2rem,7vw,4rem)">You're still my Cutieeee.</p>
+      <p>Unfortunately, that part isn't up for debate. 😭</p>
+      <button class="btn primary" onclick="yesDone()">Okay fine →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="p7">
+  <div class="final">
+    <div class="center">
+      <div class="eyebrow">For my Sohniyee</div>
+      <h2>One last thing.</h2>
+    </div>
+    <div class="letter message">
+      <p class="lead">Sohniyee...</p>
+      <p>I could have just sent you a “sorry.”</p>
+      <p>But that felt too small.</p>
+      <p>Because you're not a small part of my life.</p>
+      <p>You're someone I've laughed with, argued with, annoyed, been annoyed by, talked to for hours, and shared so many little moments with.</p>
+      <p>And somewhere between all those little moments...</p>
+      <div class="bigline">you became someone incredibly special to me.</div>
+      <p>I don't know if I always show it properly.</p>
+      <p>I don't know if I always say the right things.</p>
+      <p>And I definitely don't know how to avoid turning small arguments into entire seasons of a TV show. 😭</p>
+      <p>But I hope you always know this:</p>
+      <p><b>I care about you.</b><br><b>I care about your smile.</b><br><b>I care about us.</b></p>
+      <p>And I never want one bad moment to make you forget all the good ones.</p>
+      <div class="line"></div>
+      <p>So yes...</p>
+      <p class="lead"><b>I'm sorry, Cutieeee.</b></p>
+      <p>And thank you for being my Sohniyee.</p>
+      <p>For the laughs.<br>For the nonsense.<br>For the memories.<br>For simply being you.</p>
+      <div class="center">
+        <div class="smile">Now smile.</div>
+        <p class="lead">That's all I wanted. ❤️</p>
+        <div class="signature">— from the idiot who made an entire website instead of simply saying sorry 😭</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast"></div>
+<div class="confetti" id="confetti"></div>
+
+<script>
+  let current = 1;
+  function go(n){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    const next=document.getElementById('p'+n);
+    next.classList.add('active');
+    current=n;
+    window.scrollTo({top:0,behavior:'smooth'});
+    if(n===2){
+      setTimeout(()=>document.querySelectorAll('#p2 .fill').forEach(x=>x.style.width=x.dataset.w),250);
+    }
+  }
+  function openCard(card){
+    const was=card.classList.contains('open');
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('open'));
+    if(!was) card.classList.add('open');
+    const title=card.querySelector('h3')?.textContent;
+    if(title==='Us ❤️'){
+      document.getElementById('usMessage').classList.add('show');
+    }
+  }
+  function nope(){
+    document.getElementById('noReply').style.display='block';
+    document.getElementById('noReveal').style.display='none';
+    document.getElementById('noReply').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function revealNo(){
+    document.getElementById('noReveal').style.display='block';
+    document.getElementById('noReveal').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+  function yesDone(){
+    burst();
+    setTimeout(()=>go(7),900);
+  }
+  function burst(){
+    const box=document.getElementById('confetti');
+    box.innerHTML='';
+    const chars=['♥','✦','✧','•'];
+    for(let i=0;i<55;i++){
+      const el=document.createElement('i');
+      el.textContent=chars[Math.floor(Math.random()*chars.length)];
+      el.style.left=(Math.random()*100)+'%';
+      el.style.setProperty('--x',((Math.random()-.5)*180)+'px');
+      el.style.animationDelay=(Math.random()*.5)+'s';
+      el.style.color=['#ff8fb3','#ffd0df','#ffffff','#f6c8a8'][Math.floor(Math.random()*4)];
+      el.style.fontSize=(10+Math.random()*16)+'px';
+      el.style.width='auto'; el.style.height='auto'; el.style.background='none';
+      box.appendChild(el);
+    }
+    setTimeout(()=>box.innerHTML='',3200);
+  }
+</script>
+</body>
+</html>
